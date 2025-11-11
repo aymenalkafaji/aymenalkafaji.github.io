@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aymen Alkafaji | Threat Intelligence Analyst</title>
+  <link rel="stylesheet" href="design.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <img src="Logo without background.png" alt="Aymen Alkafaji Logo" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Expertise</a></li>
+        <li><a href="#resume">Resume</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h2>Hello, I'm <span>Aymen Alkafaji</span></h2>
+        <p>
+          Threat Intelligence Analyst specializing in AI-driven detection, 
+          automation, and risk mitigation strategies to protect users and 
+          business platforms from evolving digital threats.
+        </p>
+        <a href="#resume" class="btn">View My Resume</a>
+      </div>
+
+      <div class="hero-image">
+        <!-- 🔹 Replace this with your own PNG or vector portrait -->
+        <img src="portrate.png" alt="Aymen Alkafaji Portrait" />
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <p>
+      I’m a cybersecurity and trust & safety professional with extensive experience 
+      in Threat Intelligence, AI-driven automation, and data analytics. My work 
+      focuses on leveraging automation and heuristics to identify, analyze, and 
+      mitigate emerging threats across large-scale digital ecosystems. 
+      With a background in computer science and hands-on expertise in machine 
+      learning rule deployment, I strive to build scalable, secure systems that 
+      empower safer online communities.
+    </p>
+  </section>
+
+  <!-- Skills / Expertise Section -->
+  <section id="skills" class="skills">
+    <h2>Technical Skills & Expertise</h2>
+    <div class="carousel" id="carousel">
+      <div class="card">
+        <h3>Threat Analysis</h3>
+        <p>Threat Actor Profiling, TTP Analysis, Risk Mitigation, Data Analytics, 
+           Incident Reporting, Stakeholder Briefings.</p>
+      </div>
+      <div class="card">
+        <h3>Automation & AI</h3>
+        <p>AI/ML Rule Deployment, Process Automation, Heuristics Development, 
+           Internal Rule Engines, Queue Optimization.</p>
+      </div>
+      <div class="card">
+        <h3>Programming</h3>
+        <p>Python (Scripting/Data Analysis), R (Statistical Analysis), 
+           SQL (Data Querying), Java, Scala, Linux Environments.</p>
+      </div>
+      <div class="card">
+        <h3>Operational Impact</h3>
+        <p>Reduced appeal backlog by 65%, mitigated impersonation attacks by 69%, 
+           and automated high-risk detection for 3,000+ accounts daily.</p>
+      </div>
+      <div class="card">
+        <h3>Data & Project Coordination</h3>
+        <p>Project Scheduling, Data Quality Management, UNIX Troubleshooting, 
+           Data Governance, Statistical Reporting.</p>
+      </div>
+      <div class="card">
+        <h3>Interests</h3>
+        <p>AI Security Research, Digital Trust Systems, Automation Design, 
+           Cyber Threat Detection, Open Source Intelligence (OSINT).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume Section -->
+  <section id="resume" class="resume">
+    <h2>My Resume</h2>
+    <p>Download my resume to explore my full professional experience and accomplishments in threat intelligence and data analytics.</p>
+    <a href="AYMEN ALKAFAJI.pdf" class="btn download" download>Download PDF</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Aymen Alkafaji | Threat Intelligence & Trust | Built with 💙 and Code</p>
+  </footer>
+
+  <!-- Auto-scroll Script -->
+  <script>
+    const carousel = document.getElementById('carousel');
+    const scrollStep = 320;
+    const scrollInterval = 5000;
+
+    setInterval(() => {
+      if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth) {
+        carousel.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        carousel.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      }
+    }, scrollInterval);
+  </script>
+</body>
+</html>
