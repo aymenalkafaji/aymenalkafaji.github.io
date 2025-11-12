@@ -152,9 +152,9 @@ nav a:hover {
   display: flex;
   overflow-x: auto;
   gap: 1.5rem;
-  margin-top:3rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
   padding-bottom: 1rem;
-  padding-top: 1rem;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -175,6 +175,10 @@ nav a:hover {
   z-index: 1;
 }
 
+.strip {
+  color: white;
+}
+
 .card:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 20px rgba(61, 238, 228, 0.25);
@@ -190,6 +194,13 @@ nav a:hover {
 .resume {
   padding: 4rem 2rem;
   text-align: center;
+}
+
+.paragraph {
+  max-width: 800px;     /* keeps the content from stretching too wide */
+  margin: 0 auto;       /* centers the block horizontally */
+  text-align: left;     /* aligns text to the left */
+  padding: 20px;        /* optional: adds breathing room */
 }
 
 .resume h2 {
@@ -225,4 +236,3 @@ nav a:hover {
     flex: 0 0 260px;
   }
 }
-
