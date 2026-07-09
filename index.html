@@ -7,96 +7,122 @@
   <link rel="stylesheet" href="design.css" />
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
+  <!-- Animated Background -->
+  <div class="blob-field" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
     <div class="logo">
       <img src="Logo without background.png" alt="Aymen Alkafaji Logo" />
     </div>
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Expertise</a></li>
-        <li><a href="resume.html">Resume</a></li>
-      </ul>
-    </nav>
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Expertise</a></li>
+      <li><a href="resume.html" class="btn">Resume</a></li>
+    </ul>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section id="home" class="hero">
     <div class="hero-content">
       <div class="hero-text">
-        <h2>Hello, I'm <span>Aymen</span>!</h2>
+        <span class="eyebrow">Threat Intelligence Analyst</span>
+        <h1>Hello, I'm <span class="glow">Aymen</span></h1>
         <p>
-          Threat Intelligence Analyst specializing in AI-driven detection, 
-          automation, and risk mitigation strategies to protect users and 
-          business platforms from evolving digital threats.
+          Specializing in AI-driven detection, automation, and risk mitigation
+          strategies to protect users and business platforms from evolving
+          digital threats.
         </p>
         <a href="resume.html" class="btn">View My Resume</a>
       </div>
 
       <div class="hero-image">
-        <!-- 🔹 Replace this with your own PNG or vector portrait -->
-        <img src="portrate.png" alt="Aymen Alkafaji Portrait" />
+        <div class="portrait-frame">
+          <img src="portrate.png" alt="Aymen Alkafaji Portrait" loading="lazy" />
+        </div>
       </div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="about">
-    <h2>About Me</h2>
-    <p>
-      I’m a cybersecurity and trust & safety professional with extensive experience 
-      in Threat Intelligence, AI-driven automation, and data analytics. My work 
-      focuses on leveraging automation and heuristics to identify, analyze, and 
-      mitigate emerging threats across large-scale digital ecosystems. 
-      With a background in computer science and hands-on expertise in machine 
-      learning rule deployment, I strive to build scalable, secure systems that 
-      empower safer online communities.
-    </p>
+  <section id="about">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Get to know me</span>
+      <h2>About Me</h2>
+    </div>
+    <div class="about-card glass reveal">
+      <p>
+        I’m a cybersecurity and trust & safety professional with extensive experience
+        in Threat Intelligence, AI-driven automation, and data analytics. My work
+        focuses on leveraging automation and heuristics to identify, analyze, and
+        mitigate emerging threats across large-scale digital ecosystems.
+        With a background in computer science and hands-on expertise in machine
+        learning rule deployment, I strive to build scalable, secure systems that
+        empower safer online communities.
+      </p>
+    </div>
   </section>
 
   <!-- Skills / Expertise Section -->
-  <section id="skills" class="skills">
-    <h2>Technical Skills & Expertise</h2>
-    <div class="carousel" id="carousel">
-      <div class="card">
-        <h3>Threat Analysis</h3>
-        <p>Threat Actor Profiling, TTP Analysis, Risk Mitigation, Data Analytics, 
-           Incident Reporting, Stakeholder Briefings.</p>
+  <section id="skills">
+    <div class="section-heading reveal">
+      <span class="eyebrow">What I bring</span>
+      <h2>Technical Skills & Expertise</h2>
+    </div>
+
+    <div class="skills-grid">
+      <div class="card glass reveal" data-reveal-delay="0">
+        <h3>Threat Intelligence & Hunting</h3>
+        <p>Threat Intelligence, Threat Hunting, MITRE ATT&CK, OSINT,
+           Incident Response.</p>
       </div>
-      <div class="card">
-        <h3>Automation & AI</h3>
-        <p>AI/ML Rule Deployment, Process Automation, Heuristics Development, 
-           Internal Rule Engines, Queue Optimization.</p>
+      <div class="card glass reveal" data-reveal-delay="80">
+        <h3>Detection & AI Safety</h3>
+        <p>Detection Engineering, AI Safety, Fraud Detection,
+           Automation.</p>
       </div>
-      <div class="card">
-        <h3>Programming</h3>
-        <p>Python (Scripting/Data Analysis), R (Statistical Analysis), 
-           SQL (Data Querying), Java, Scala, Linux Environments.</p>
+      <div class="card glass reveal" data-reveal-delay="160">
+        <h3>Programming & Systems</h3>
+        <p>Python, SQL, Linux.</p>
       </div>
-      <div class="card">
-        <h3>Operational Impact</h3>
-        <p>Reduced appeal backlog by 65%, mitigated impersonation attacks by 69%, 
-           and automated high-risk detection for 3,000+ accounts daily.</p>
+      <div class="card glass reveal" data-reveal-delay="240">
+        <h3>Reporting & Risk</h3>
+        <p>Intelligence Reporting, Risk Analysis.</p>
       </div>
-      <div class="card">
-        <h3>Data & Project Coordination</h3>
-        <p>Project Scheduling, Data Quality Management, UNIX Troubleshooting, 
-           Data Governance, Statistical Reporting.</p>
+    </div>
+
+    <div class="stat-strip glass reveal">
+      <div class="stat">
+        <span class="stat-number" data-target="1500" data-suffix="+">0</span>
+        <p>Threat investigations conducted</p>
       </div>
-      <div class="card">
-        <h3>Interests</h3>
-        <p>AI Security Research, Digital Trust Systems, Automation Design, 
-           Cyber Threat Detection, Open Source Intelligence (OSINT).</p>
+      <div class="stat">
+        <span class="stat-number" data-target="60" data-suffix="%+">0</span>
+        <p>Manual investigation effort reduced</p>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-target="300000" data-suffix="+">0</span>
+        <p>High-risk accounts removed daily</p>
       </div>
     </div>
   </section>
 
-  <!-- Resume Section -->
-  <section id="resume" class="resume">
-    <h2>My Resume</h2>
-    <p>Download my resume to explore my full professional experience and accomplishments in threat intelligence and data analytics.</p>
-    <a target = "_blank" href="AYMEN ALKAFAJI.pdf" class="btn download" download>Download PDF</a>
+  <!-- Resume CTA -->
+  <section>
+    <div class="resume-cta glass reveal">
+      <h2>My Resume</h2>
+      <p>Download my resume to explore my full professional experience and accomplishments in threat intelligence and data analytics.</p>
+      <a target="_blank" href="AYMEN ALKAFAJI.pdf" class="btn download" download>Download PDF</a>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -104,19 +130,6 @@
     <p>© 2025 Aymen Alkafaji | Threat Intelligence & Trust | Built with 💙 and Code</p>
   </footer>
 
-  <!-- Auto-scroll Script -->
-  <script>
-    const carousel = document.getElementById('carousel');
-    const scrollStep = 320;
-    const scrollInterval = 5000;
-
-    setInterval(() => {
-      if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth) {
-        carousel.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        carousel.scrollBy({ left: scrollStep, behavior: 'smooth' });
-      }
-    }, scrollInterval);
-  </script>
+  <script src="main.js" defer></script>
 </body>
 </html>
