@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The $430B NVIDIA Scandal | Aymen Alkafaji</title>
+  <meta name="description" content="An event-study analysis separating NVIDIA's scandal-specific stock losses from the broader semiconductor selloff." />
+  <link rel="stylesheet" href="../../design.css" />
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="blob-field" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="../../Logo without background.png" alt="Aymen Alkafaji Logo" />
+    </div>
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#projects">Projects</a></li>
+      <li><a href="../../index.html" class="btn">Home</a></li>
+    </ul>
+  </header>
+
+  <section>
+    <div class="article-header glass reveal">
+      <div class="article-meta">
+        <span>Event Study</span>
+        <span>Cybersecurity &times; Geopolitics &times; Finance</span>
+        <span>Published Nov 11, 2026</span>
+      </div>
+      <h1>The $430 Billion NVIDIA Scandal: How Much Was Really Lost?</h1>
+      <p class="subhead">
+        Separating NVIDIA's scandal-specific stock losses from the broader
+        AI/semiconductor selloff, by comparing NVDA against AMD, Broadcom,
+        and the Nasdaq Composite and calculating abnormal returns and
+        market-value changes.
+      </p>
+    </div>
+
+    <div class="article-body glass reveal">
+
+      <div class="callout">
+        <p>
+          <strong>Key finding:</strong> NVIDIA's market capitalization fell
+          roughly <strong>$429B</strong> over the two sessions of Nov&nbsp;9&ndash;10,
+          2026 &mdash; matching the widely reported "$430B" figure almost
+          exactly. But AMD and Broadcom <em>rose</em> 9&ndash;15% over the same
+          two days. A simple market-model (beta-adjusted) estimate puts the
+          scandal-specific, company-only loss at roughly <strong>$570B</strong> &mdash;
+          larger than the net headline number &mdash; because the semiconductor
+          sector was otherwise rallying while NVIDIA alone cratered.
+        </p>
+      </div>
+
+      <h2>Background</h2>
+      <p>
+        In early November 2026, NVIDIA shares fell sharply amid reporting that
+        CEO Jensen Huang had a personal relationship with a Chinese
+        businesswoman whom U.S. officials reportedly suspect may be a Chinese
+        intelligence asset, and whose Singapore-based company is alleged to
+        have helped route billions of dollars of NVIDIA chips into China. By
+        November 10&ndash;11, reports indicated NVIDIA's independent directors
+        had retained outside counsel to investigate, the FBI was separately
+        examining whether Huang had been targeted by a foreign intelligence
+        operation, and congressional Republicans were threatening to subpoena
+        him. <strong>China has denied the intelligence allegations, and Reuters
+        has said it could not independently verify them</strong> &mdash; this
+        analysis makes no claim about the truth of the underlying allegations;
+        it only measures their financial market impact.
+      </p>
+      <p>
+        The story is still developing at the time of writing (NVIDIA's Q3
+        FY2027 earnings are scheduled for November 17, 2026), so the figures
+        below reflect data through the November 10 market close.
+      </p>
+
+      <h2>The question</h2>
+      <p>
+        Reuters and other outlets reported NVIDIA lost approximately $430
+        billion in market capitalization over two trading sessions. But
+        November 2026 was already a rough month for AI/semiconductor stocks
+        broadly &mdash; NVIDIA had shed nearly 20% since early October amid
+        wider "AI bubble" concerns, well before the scandal broke. So: how
+        much of the $430B was really the scandal, and how much was NVIDIA
+        simply getting swept up in a sector-wide selloff it would have faced
+        anyway?
+      </p>
+
+      <h2>Data &amp; methodology</h2>
+      <p>Daily OHLC price data for NVDA, AMD, AVGO, and the Nasdaq Composite
+      (^IXIC) from January 2024 through November 10, 2026, sourced from
+      Yahoo Finance's public market-data endpoint. Shares-outstanding figures
+      (NVDA ~24.19B, AMD ~1.63B, AVGO ~4.77B) from public SEC filings and
+      market-data providers as of November 2026.</p>
+      <p>This is a standard <strong>event-study / market-model</strong>
+      approach used in finance research to separate a stock's
+      company-specific ("abnormal") return from the return explained by
+      broad market movement:</p>
+      <ol>
+        <li>
+          <strong>Estimate a market model</strong> for each stock over a clean
+          window (Oct 2025&ndash;Oct 2026, before the turmoil) by regressing
+          daily stock returns on Nasdaq Composite returns:
+          <code>R<sub>stock</sub> = &alpha; + &beta; &middot; R<sub>market</sub> + &epsilon;</code>.
+          This gives each stock's historical sensitivity (beta) to the
+          overall market.
+        </li>
+        <li>
+          <strong>Compute the expected return</strong> on each event day using
+          that model and the market's actual return that day.
+        </li>
+        <li>
+          <strong>Abnormal return</strong> = actual return &minus; expected
+          return. Summed across days, this is the Cumulative Abnormal Return
+          (CAR) &mdash; the part of the move the market couldn't explain.
+        </li>
+      </ol>
+      <p>I treat <strong>November 5</strong> as the broad "AI bubble fears"
+      selloff (all three chip stocks fell together, roughly in line with
+      their betas) and <strong>November 9&ndash;10</strong> as the
+      scandal-specific event window, matching the two-session timeframe cited
+      in reporting.</p>
+
+      <h2>Finding 1 &mdash; NVIDIA decoupled from its peers exactly when the scandal escalated</h2>
+      <figure class="chart-figure">
+        <img src="assets/chart_indexed_prices.png" alt="Line chart of NVDA, AMD, AVGO, and Nasdaq Composite prices indexed to 100 on Oct 1 2026, showing all four falling together through late October before NVDA diverges sharply downward on Nov 9-10 while AMD and AVGO recover." loading="lazy" />
+        <figcaption>NVDA, AMD, AVGO, and the Nasdaq Composite, indexed to 100 on Oct 1, 2026.</figcaption>
+      </figure>
+      <p>
+        Through October and into early November, NVDA, AMD, and AVGO moved
+        down together &mdash; consistent with sector-wide AI-valuation
+        concerns rather than anything NVIDIA-specific. That pattern breaks
+        completely on November 9&ndash;10: AMD and Broadcom turn sharply
+        upward while NVIDIA keeps falling. That divergence is the financial
+        signature of an idiosyncratic, company-specific shock.
+      </p>
+
+      <h2>Finding 2 &mdash; Peers gained value on the exact days NVIDIA lost it</h2>
+      <figure class="chart-figure">
+        <img src="assets/chart_two_day_divergence.png" alt="Bar chart showing NVIDIA lost 429 billion dollars in market value over November 9-10 2026 while AMD gained 108 billion and Broadcom gained 183 billion." loading="lazy" />
+        <figcaption>Market-value change, Nov 9&ndash;10, 2026.</figcaption>
+      </figure>
+      <p>
+        NVDA: <strong>&minus;9.5%</strong> (&minus;$429B). AMD:
+        <strong>+14.7%</strong> (+$108B). AVGO: <strong>+13.0%</strong>
+        (+$183B). The Nasdaq Composite was roughly flat net over the two
+        days (+2.7% then &minus;0.7%). If NVIDIA had simply moved with its
+        historical beta to the market during this window, the model predicts
+        it should have <em>gained</em> value, not lost it &mdash; which is
+        exactly what happened to its two closest peers.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Symbol</th><th>Beta</th><th>Actual, Nov 9&ndash;10</th><th>Abnormal (CAR)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>NVDA</td><td>1.45</td><td>&minus;9.51%</td><td>&minus;12.63%</td></tr>
+          <tr><td>AMD</td><td>2.48</td><td>+14.74%</td><td>+9.03%</td></tr>
+          <tr><td>AVGO</td><td>1.65</td><td>+13.04%</td><td>+9.56%</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Finding 3 &mdash; Decomposing the $430B headline number</h2>
+      <figure class="chart-figure">
+        <img src="assets/chart_nvda_waterfall.png" alt="Waterfall chart showing NVIDIA's market cap falling from 4,515 billion dollars on Nov 6 to 4,085 billion on Nov 10, with a positive 141 billion dollar market/sector effect offset by a negative 570 billion dollar scandal-specific effect." loading="lazy" />
+        <figcaption>NVIDIA market-cap bridge, Nov 6 close &rarr; Nov 10 close.</figcaption>
+      </figure>
+      <p>
+        Applying NVDA's beta (1.45) to the market's actual two-day move
+        implies the broad market/sector environment should have added
+        roughly <strong>+$141B</strong> to NVIDIA's market cap over those two
+        sessions. Instead, NVIDIA lost $429B net &mdash; meaning the
+        scandal-specific (abnormal) component was roughly
+        <strong>&minus;$570B</strong>, partially offset by that positive
+        market tailwind. In other words: the <strong>net</strong> $430B
+        figure actually understates the scandal's company-specific cost,
+        because it nets out a broad-market gain NVIDIA would otherwise have
+        captured alongside its peers.
+      </p>
+
+      <h2>Limitations &amp; caveats</h2>
+      <ul>
+        <li>
+          The underlying intelligence/espionage allegations are disputed and,
+          per Reuters, independently unverified. This analysis only measures
+          market reaction to the reporting, not the truth of the allegations.
+        </li>
+        <li>
+          A single-factor market model is a simplification; it doesn't
+          capture semiconductor-sector-specific factors (e.g., a shared
+          industry catalyst that isn't reflected in the broad Nasdaq index).
+          A multi-factor model using an equal-weighted peer index as the
+          benchmark would likely sharpen these estimates further.
+        </li>
+        <li>
+          This is a fast-moving story. NVIDIA reports Q3 FY2027 earnings on
+          November 17, 2026, which could materially change the stock's
+          trajectory and the durability of this estimate.
+        </li>
+        <li>
+          Shares-outstanding figures are point-in-time estimates and change
+          slightly with buybacks/equity issuance.
+        </li>
+      </ul>
+
+      <h2>Sources</h2>
+      <ul class="sources-list">
+        <li><a href="https://www.gurufocus.com/news/9192150/nvidia-faces-75-billion-chip-scandal-after-430-billion-wipeout" target="_blank" rel="noopener">Nvidia faces $7.5 billion chip scandal after $430 billion wipeout &mdash; GuruFocus</a></li>
+        <li><a href="https://www.theglobeandmail.com/business/article-nvidia-stock-market-value-ceo-jensen-huang-affair-fallout/" target="_blank" rel="noopener">Nvidia shares plunge for second day as Huang affair fallout deepens &mdash; The Globe and Mail</a></li>
+        <li><a href="https://finance.yahoo.com/markets/stocks/articles/nvidia-sheds-430b-two-days-121546673.html" target="_blank" rel="noopener">Nvidia Sheds $430B in Two Days as Jensen Huang Faces Calls to Resign &mdash; Yahoo Finance</a></li>
+        <li><a href="https://cnbc.com/2026/11/11/nvidia-jensen-huang-affair-employee.html" target="_blank" rel="noopener">Nvidia prepares to oust Jensen Huang, WSJ reports &mdash; stock sinks &mdash; CNBC</a></li>
+        <li><a href="https://finance.yahoo.com/markets/stocks/articles/nvidia-erases-2026-gains-republicans-204550552.html" target="_blank" rel="noopener">Nvidia Erases 2026 Gains as Republicans Threaten Jensen Huang With Subpoena &mdash; Yahoo Finance</a></li>
+        <li>Yahoo Finance historical market data (NVDA, AMD, AVGO, ^IXIC)</li>
+      </ul>
+
+      <h2>Data &amp; code</h2>
+      <p>
+        Raw daily prices, computed returns, and the summary table used in
+        this analysis:
+        <a href="data/daily_prices.csv">daily_prices.csv</a>,
+        <a href="data/daily_returns.csv">daily_returns.csv</a>,
+        <a href="data/summary.csv">summary.csv</a>. The event-study
+        calculations and chart-generation scripts:
+        <a href="code/analysis.py">analysis.py</a>,
+        <a href="code/charts.py">charts.py</a>.
+      </p>
+    </div>
+
+    <div class="article-cta glass reveal">
+      <a href="../../index.html#projects" class="btn">&larr; Back to Projects</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Aymen Alkafaji | Threat Intelligence &amp; Trust | Built with &#x1F499; and Code</p>
+  </footer>
+
+  <script src="../../main.js" defer></script>
+</body>
+</html>
