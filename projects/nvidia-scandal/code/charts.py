@@ -19,10 +19,14 @@ GRID      = "#2A2B3A"
 GOOD      = "#4C9A6A"
 BAD       = "#C24B3F"
 
+# ---- card frame (padded rounded-border card, matching the site's chosen look) ----
+CANVAS_BG = "#0A0D18"
+CARD_BORDER = "#3A4560"
+
 plt.rcParams.update({
-    "figure.facecolor": "none",
+    "figure.facecolor": CANVAS_BG,
     "axes.facecolor": "none",
-    "savefig.facecolor": "none",
+    "savefig.facecolor": CANVAS_BG,
     "text.color": TEXT,
     "axes.edgecolor": GRID,
     "axes.labelcolor": TEXT_MUTED,
@@ -31,6 +35,25 @@ plt.rcParams.update({
     "font.family": "DejaVu Sans",
     "font.size": 13,
 })
+
+def add_card_frame(fig, margin=0.018):
+    """Draws a padded, rounded-border card frame behind the chart, inset
+    from the canvas edge, matching the site's chosen chart style. Uses a
+    dedicated background Axes (not fig.patches, which draws above Axes
+    content regardless of zorder) so the card sits behind the plot."""
+    from matplotlib.patches import FancyBboxPatch
+    bg_ax = fig.add_axes((0, 0, 1, 1), zorder=-10)
+    bg_ax.set_xlim(0, 1)
+    bg_ax.set_ylim(0, 1)
+    bg_ax.add_patch(FancyBboxPatch(
+        (margin, margin), 1 - 2 * margin, 1 - 2 * margin,
+        boxstyle="round,pad=0,rounding_size=0.018",
+        transform=bg_ax.transAxes, linewidth=1.3,
+        edgecolor=CARD_BORDER, facecolor=CANVAS_BG,
+    ))
+    bg_ax.axis("off")
+    fig.subplots_adjust(left=margin + 0.075, right=1 - margin - 0.02,
+                         top=1 - margin - 0.09, bottom=margin + 0.11)
 
 prices = pd.read_csv("daily_prices.csv", index_col=0, parse_dates=True)
 rets = pd.read_csv("daily_returns.csv", index_col=0, parse_dates=True)
@@ -78,8 +101,8 @@ ax.set_xlim(idx.index.min(), idx.index.max() + pd.Timedelta(days=4))
 ax.set_title("NVIDIA vs. chip peers vs. the market, Oct–Nov 2026", color=TEXT, fontsize=15.5,
              fontweight="bold", loc="left", pad=14)
 ax.legend(loc="lower left", frameon=False, labelcolor=TEXT_MUTED, fontsize=10.5, ncol=2)
-fig.tight_layout()
-fig.savefig("chart_indexed_prices.png", dpi=200, transparent=True, bbox_inches="tight")
+add_card_frame(fig)
+fig.savefig("chart_indexed_prices.png", dpi=200)
 plt.close(fig)
 
 # =================================================================
@@ -102,8 +125,8 @@ ax.spines["bottom"].set_visible(False)
 ax.set_ylabel("Market value change, Nov 9–10 2026 ($B)")
 ax.set_title("NVIDIA fell while its chip peers rose", color=TEXT, fontsize=15.5,
              fontweight="bold", loc="left", pad=14)
-fig.tight_layout()
-fig.savefig("chart_two_day_divergence.png", dpi=200, transparent=True, bbox_inches="tight")
+add_card_frame(fig)
+fig.savefig("chart_two_day_divergence.png", dpi=200)
 plt.close(fig)
 
 # =================================================================
@@ -154,8 +177,8 @@ ax.spines["bottom"].set_visible(False)
 ax.set_ylabel("NVIDIA market capitalization ($B)")
 ax.set_title("Where NVIDIA's two-day loss actually came from", color=TEXT, fontsize=15.5,
              fontweight="bold", loc="left", pad=14)
-fig.tight_layout()
-fig.savefig("chart_nvda_waterfall.png", dpi=200, transparent=True, bbox_inches="tight")
+add_card_frame(fig)
+fig.savefig("chart_nvda_waterfall.png", dpi=200)
 plt.close(fig)
 
 print("Saved chart_indexed_prices.png, chart_two_day_divergence.png, chart_nvda_waterfall.png")
