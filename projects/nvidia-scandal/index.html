@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The $430B NVIDIA Scandal | Aymen Alkafaji</title>
-  <meta name="description" content="An event-study analysis separating NVIDIA's scandal-specific stock losses from the broader semiconductor selloff." />
+  <meta name="description" content="A multi-benchmark event-study analysis of NVIDIA's stock price around the scandal reporting window, with significance tests, confidence intervals, and sensitivity checks." />
 
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Aymen Alkafaji" />
   <meta property="og:title" content="The $430 Billion NVIDIA Scandal: How Much Was Really Lost?" />
-  <meta property="og:description" content="An event-study analysis separating NVIDIA's scandal-specific stock losses from the broader semiconductor selloff." />
+  <meta property="og:description" content="A multi-benchmark event-study analysis of NVIDIA's stock price around the scandal reporting window, with significance tests, confidence intervals, and sensitivity checks." />
   <meta property="og:url" content="https://aymen.pro/projects/nvidia-scandal/" />
   <meta property="og:image" content="https://aymen.pro/projects/nvidia-scandal/assets/social-card.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="The $430 Billion NVIDIA Scandal: How Much Was Really Lost?" />
-  <meta name="twitter:description" content="An event-study analysis separating NVIDIA's scandal-specific stock losses from the broader semiconductor selloff." />
+  <meta name="twitter:description" content="A multi-benchmark event-study analysis of NVIDIA's stock price around the scandal reporting window, with significance tests, confidence intervals, and sensitivity checks." />
   <meta name="twitter:image" content="https://aymen.pro/projects/nvidia-scandal/assets/social-card.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,14 +43,18 @@
         <div class="article-meta">
           <span>Event study</span>
           <span>Cybersecurity &times; geopolitics &times; finance</span>
-          <span>Published Nov 11, 2026</span>
+          <span>Updated Nov 12, 2026</span>
         </div>
         <h1>The $430 billion NVIDIA scandal: how much was really lost?</h1>
         <p class="subhead">
-          Separating NVIDIA's scandal-specific stock losses from the broader
-          AI/semiconductor selloff, by comparing NVDA against AMD, Broadcom,
-          and the Nasdaq Composite and calculating abnormal returns and
-          market-value changes.
+          A statistical event-study analysis of NVIDIA's stock price around
+          the scandal reporting window &mdash; benchmarked against AMD,
+          Broadcom, the Nasdaq Composite, the S&amp;P 500, and two
+          semiconductor-sector ETFs, with significance tests, confidence
+          intervals, and sensitivity checks across multiple event windows.
+          This is a correlational analysis; see
+          <a href="#causation">Correlation vs. causation</a> before drawing
+          conclusions from it.
         </p>
       </div>
 
@@ -59,13 +63,23 @@
         <div class="callout">
           <p>
             <strong>Key finding:</strong> NVIDIA's market capitalization fell
-            roughly <strong>$429B</strong> over the two sessions of Nov&nbsp;9-10,
-            2026, matching the widely reported "$430B" figure almost
-            exactly. But AMD and Broadcom <em>rose</em> 9-15% over the same
-            two days. A simple market-model (beta-adjusted) estimate puts the
-            scandal-specific, company-only loss at roughly <strong>$570B</strong>
-            (larger than the net headline number) because the semiconductor
-            sector was otherwise rallying while NVIDIA alone cratered.
+            by an observed <strong>$429B</strong> over the two trading
+            sessions of Nov&nbsp;9-10, 2026, matching the widely reported
+            "$430B" figure almost exactly. A standard event-study market
+            model splits that into a market/sector-explained component
+            (<strong>+$141B</strong>) and a statistically significant
+            <strong>abnormal (unexplained) decline of roughly
+            &minus;$570B</strong> (95% CI: &minus;$777B to &minus;$363B;
+            t&nbsp;=&nbsp;&minus;5.43, p&nbsp;&lt;&nbsp;0.001 against the
+            Nasdaq Composite, and significant against three other benchmarks
+            too &mdash; see <a href="#robustness">Robustness</a>). This
+            abnormal decline is <em>statistically associated with</em> the
+            window in which scandal-related reporting escalated. It is not
+            proof that the reporting <em>caused</em> the decline &mdash;
+            event studies measure correlation, not causation. Read
+            <a href="#causation">Correlation vs. causation</a> and
+            <a href="#limitations">Limitations</a> before treating this as a
+            causal estimate.
           </p>
         </div>
 
@@ -82,13 +96,53 @@
           operation, and congressional Republicans were threatening to subpoena
           him. <strong>China has denied the intelligence allegations, and Reuters
           has said it could not independently verify them</strong>. This
-          analysis makes no claim about the truth of the underlying allegations;
-          it only measures their financial market impact.
+          analysis makes no claim about the truth of the underlying
+          allegations and takes no political position on them; it only
+          measures the statistical behavior of NVIDIA's stock price during
+          the window in which this reporting was concentrated.
         </p>
         <p>
           The story is still developing at the time of writing (NVIDIA's Q3
-          FY2027 earnings are scheduled for November 17, 2026), so the figures
-          below reflect data through the November 10 market close.
+          FY2027 earnings call is scheduled for November 17, 2026 &mdash;
+          after the event window studied here), so the figures below reflect
+          data through the November 11, 2026 close.
+        </p>
+        <p>
+          November 2026 was also already a difficult month for AI and
+          semiconductor stocks generally. On November 5, the Nasdaq Composite
+          fell 5.5% and AMD, Broadcom, and NVIDIA all fell together,
+          reportedly driven by a mix of factors unrelated to NVIDIA
+          specifically: renewed "AI bubble" valuation concerns (including a
+          resurfaced warning from investor Michael Burry), a weak earnings
+          reaction to Qualcomm's results, commentary tying a U.S. midterm
+          election outcome to expectations about future AI capital spending,
+          and a broader rotation of fund-manager capital out of AI-adjacent
+          stocks (<a href="#sources">sources</a>). That day is analyzed
+          separately below, as context, and is <em>not</em> part of the
+          primary event window.
+        </p>
+
+        <h2 id="causation">Correlation vs. causation</h2>
+        <p>
+          This analysis documents a <strong>statistically significant,
+          unusually large, company-specific stock-price move</strong> that
+          coincided with the period of most intense scandal-related
+          reporting about NVIDIA. That is a correlational finding. It does
+          not, and cannot, establish that the reporting (or the underlying
+          allegations, which remain disputed) <em>caused</em> investors to
+          sell NVDA, as opposed to some other contemporaneous but unobserved
+          factor &mdash; for example, analyst rating changes, options-market
+          positioning, index-fund flows, or firm-specific news not
+          captured in the public reporting reviewed here. What the data can
+          support is narrower and still meaningful: NVIDIA's stock behaved in
+          a way that is statistically distinguishable from its own
+          historical relationship to the broader market and from its closest
+          peers, specifically during the days this reporting was most
+          intense, and that pattern is robust to the choice of benchmark and
+          event window tested below. Readers should not interpret the dollar
+          figures in this piece as a proven, causally-attributed "cost of the
+          scandal" &mdash; they are a statistical estimate of an abnormal
+          return, with the uncertainty that implies.
         </p>
 
         <h2>The question</h2>
@@ -97,123 +151,314 @@
           billion in market capitalization over two trading sessions. But
           November 2026 was already a rough month for AI/semiconductor stocks
           broadly: NVIDIA had shed nearly 20% since early October amid
-          wider "AI bubble" concerns, well before the scandal broke. So: how
-          much of the $430B was really the scandal, and how much was NVIDIA
-          simply getting swept up in a sector-wide selloff it would have faced
-          anyway?
+          wider "AI bubble" concerns, well before the scandal reporting
+          intensified. So: how much of the $430B decline is statistically
+          distinguishable from a broader sector-wide move NVIDIA was already
+          experiencing, and how much is not explained by that broader move at
+          all?
         </p>
 
         <h2>Data &amp; methodology</h2>
-        <p>Daily OHLC price data for NVDA, AMD, AVGO, and the Nasdaq Composite
-        (^IXIC) from January 2024 through November 10, 2026, sourced from
-        Yahoo Finance's public market-data endpoint. Shares-outstanding figures
-        (NVDA ~24.19B, AMD ~1.63B, AVGO ~4.77B) from public SEC filings and
-        market-data providers as of November 2026.</p>
+        <p>Daily OHLC price data for NVDA, AMD, AVGO, and four benchmarks
+        &mdash; the Nasdaq Composite (^IXIC), the S&amp;P 500 (^GSPC), the
+        iShares Semiconductor ETF (SOXX), and the VanEck Semiconductor ETF
+        (SMH) &mdash; from January 2024 through November 11, 2026, sourced
+        from Yahoo Finance's public market-data endpoint. Shares-outstanding
+        figures (NVDA ~24.19B, AMD ~1.63B, AVGO ~4.77B) from public SEC
+        filings and market-data providers as of November 2026.</p>
+
         <p>This is a standard <strong>event-study / market-model</strong>
-        approach used in finance research to separate a stock's
-        company-specific ("abnormal") return from the return explained by
-        broad market movement:</p>
+        approach (MacKinlay, 1997, <em>Journal of Economic Literature</em>)
+        used in finance research to separate a stock's company-specific
+        ("abnormal") return from the return explained by broad market
+        movement:</p>
         <ol>
           <li>
-            <strong>Estimate a market model</strong> for each stock over a clean
-            window (Oct 2025-Oct 2026, before the turmoil) by regressing
-            daily stock returns on Nasdaq Composite returns:
-            <code>R<sub>stock</sub> = &alpha; + &beta; &middot; R<sub>market</sub> + &epsilon;</code>.
-            This gives each stock's historical sensitivity (beta) to the
-            overall market.
+            <strong>Estimate a market model</strong> for each stock, against
+            each benchmark, over a clean estimation window (Oct 2025-Oct
+            2026, 252 trading days, before the turmoil) by regressing daily
+            stock returns on benchmark returns via ordinary least squares:
+            <code>R<sub>stock</sub> = &alpha; + &beta; &middot; R<sub>benchmark</sub> + &epsilon;</code>.
+            This gives each stock's historical sensitivity (beta) to that
+            benchmark and the residual standard deviation (&sigma;) of
+            returns the benchmark doesn't explain.
           </li>
           <li>
-            <strong>Compute the expected return</strong> on each event day using
-            that model and the market's actual return that day.
+            <strong>Compute the expected return</strong> on each event day
+            using that model and the benchmark's actual return that day;
+            <strong>abnormal return</strong> = actual return &minus; expected
+            return. Summed across the event window, this is the Cumulative
+            Abnormal Return (CAR).
           </li>
           <li>
-            <strong>Abnormal return</strong> = actual return &minus; expected
-            return. Summed across days, this is the Cumulative Abnormal Return
-            (CAR): the part of the move the market couldn't explain.
+            <strong>Test significance.</strong> Under the model, CAR over an
+            <em>L</em>-day window has standard error
+            <code>SE = &sigma;&radic;L</code>. The test statistic
+            <code>t = CAR / SE</code> is compared to a Student's
+            t-distribution with 250 degrees of freedom (252 estimation-window
+            observations &minus; 2 estimated parameters) to get a two-tailed
+            p-value, and a 95% confidence interval is
+            <code>CAR &plusmn; t<sub>0.975</sub> &middot; SE</code>.
           </li>
         </ol>
-        <p>I treat <strong>November 5</strong> as the broad "AI bubble fears"
-        selloff (all three chip stocks fell together, roughly in line with
-        their betas) and <strong>November 9-10</strong> as the
-        scandal-specific event window, matching the two-session timeframe cited
-        in reporting.</p>
 
-        <h2>Finding 1: NVIDIA decoupled from its peers exactly when the scandal escalated</h2>
+        <p><strong>Why four benchmarks?</strong> No single index perfectly
+        represents "the market NVIDIA would otherwise have moved with." The
+        Nasdaq Composite and S&amp;P 500 are broad-market benchmarks; SOXX
+        and SMH are semiconductor-sector-specific. Testing all four is a
+        robustness check: if the abnormal-return finding only showed up
+        against one benchmark, it would be fragile. One caveat is worth
+        flagging explicitly: NVIDIA is itself a large constituent of both
+        SOXX and SMH, so regressing NVDA against an index that partly
+        contains NVDA is mechanically a little circular &mdash; it tends to
+        <em>understate</em> the true abnormal return, not overstate it,
+        because some of NVIDIA's own move is embedded in the benchmark's
+        move. The SOXX/SMH results below should be read with that in mind.</p>
+
+        <p><strong>Event windows tested.</strong> The primary event window is
+        <strong>November 9-10, 2026</strong>, matching the two-session
+        timeframe most consistently cited in reporting on the stock decline.
+        Because that window was chosen with knowledge of when the reporting
+        intensified, there is an inherent risk of look-ahead / selection bias
+        in any single-window event study. To check whether the finding is an
+        artifact of that specific choice, the <a href="#sensitivity">Event
+        window sensitivity</a> section below re-runs the same test over two
+        alternative windows. November 5 is analyzed separately, as sector-wide
+        context, and is excluded from the primary window.</p>
+
+        <h2>Finding 1: NVIDIA decoupled from its peers when scandal-related reporting intensified</h2>
         <figure class="chart-figure">
           <img src="assets/chart_indexed_prices.png" alt="Line chart of NVDA, AMD, AVGO, and Nasdaq Composite prices indexed to 100 on Oct 1 2026, showing all four falling together through late October before NVDA diverges sharply downward on Nov 9-10 while AMD and AVGO recover." loading="lazy" />
-          <figcaption>NVDA, AMD, AVGO, and the Nasdaq Composite, indexed to 100 on Oct 1, 2026.</figcaption>
+          <figcaption>NVDA, AMD, AVGO, and the Nasdaq Composite, indexed to 100 on Oct 1, 2026. The highlighted window marks Nov 9-10, the primary event window analyzed below.</figcaption>
         </figure>
         <p>
           Through October and into early November, NVDA, AMD, and AVGO moved
-          down together, consistent with sector-wide AI-valuation
-          concerns rather than anything NVIDIA-specific. That pattern breaks
-          completely on November 9-10: AMD and Broadcom turn sharply
-          upward while NVIDIA keeps falling. That divergence is the financial
-          signature of an idiosyncratic, company-specific shock.
+          down together, consistent with the sector-wide AI-valuation
+          concerns described above rather than anything NVIDIA-specific.
+          That pattern breaks on November 9-10: AMD and Broadcom turn
+          sharply upward while NVIDIA keeps falling. That divergence is
+          consistent with an idiosyncratic, company-specific shock to NVDA
+          &mdash; though, as above, this chart alone shows correlation with
+          the event window, not its cause.
         </p>
 
-        <h2>Finding 2: Peers gained value on the exact days NVIDIA lost it</h2>
+        <h2>Finding 2: peers gained value on the same days NVIDIA lost it</h2>
         <figure class="chart-figure">
           <img src="assets/chart_two_day_divergence.png" alt="Bar chart showing NVIDIA lost 429 billion dollars in market value over November 9-10 2026 while AMD gained 108 billion and Broadcom gained 183 billion." loading="lazy" />
           <figcaption>Market-value change, Nov 9-10, 2026.</figcaption>
         </figure>
         <p>
-          NVDA: <strong>&minus;9.5%</strong> (&minus;$429B). AMD:
+          NVDA: <strong>&minus;9.5%</strong> (&minus;$429B, observed). AMD:
           <strong>+14.7%</strong> (+$108B). AVGO: <strong>+13.0%</strong>
-          (+$183B). The Nasdaq Composite was roughly flat net over the two
-          days (+2.7% then &minus;0.7%). If NVIDIA had simply moved with its
-          historical beta to the market during this window, the model predicts
-          it should have <em>gained</em> value, not lost it, which is
-          exactly what happened to its two closest peers.
+          (+$183B). The table below shows each stock's abnormal return (CAR)
+          against the Nasdaq Composite for the same two days, with the full
+          significance test: standard error, t-statistic, p-value, and 95%
+          confidence interval.
         </p>
 
-        <table class="data-table">
-          <thead>
-            <tr><th>Symbol</th><th>Beta</th><th>Actual, Nov 9-10</th><th>Abnormal (CAR)</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>NVDA</td><td>1.45</td><td>&minus;9.51%</td><td>&minus;12.63%</td></tr>
-            <tr><td>AMD</td><td>2.48</td><td>+14.74%</td><td>+9.03%</td></tr>
-            <tr><td>AVGO</td><td>1.65</td><td>+13.04%</td><td>+9.56%</td></tr>
-          </tbody>
-        </table>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr><th>Symbol</th><th>Beta (IXIC)</th><th>Actual, Nov 9-10</th><th>Abnormal (CAR)</th><th>SE</th><th>t-stat</th><th>p-value</th><th>95% CI</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>NVDA</td><td>1.45</td><td>&minus;9.51%</td><td>&minus;12.63%</td><td>2.33%</td><td>&minus;5.43</td><td>&lt;0.001</td><td>[&minus;17.2%, &minus;8.0%]</td></tr>
+              <tr><td>AMD</td><td>2.48</td><td>+14.74%</td><td>+9.03%</td><td>4.52%</td><td>2.00</td><td>0.047</td><td>[0.1%, 17.9%]</td></tr>
+              <tr><td>AVGO</td><td>1.65</td><td>+13.04%</td><td>+9.56%</td><td>3.03%</td><td>3.16</td><td>0.002</td><td>[3.6%, 15.5%]</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          All three are statistically significant at the 5% level against
+          this benchmark, in opposite directions: NVDA's abnormal return is
+          reliably negative, AMD's and AVGO's are reliably positive. AMD's
+          result is the least robust of the three (p&nbsp;=&nbsp;0.047,
+          and not significant against two of the other three benchmarks
+          tested below) &mdash; worth keeping in mind given it's a smaller,
+          more volatile stock (beta 2.48, roughly 70% more volatile than
+          NVDA's beta of 1.45 against this benchmark).
+        </p>
 
-        <h2>Finding 3: Decomposing the $430B headline number</h2>
+        <h2 id="robustness">Robustness across benchmarks</h2>
+        <p>
+          The same test, repeated for all three stocks against all four
+          benchmarks, for the primary Nov 9-10 window:
+        </p>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr><th>Symbol</th><th>Benchmark</th><th>Beta</th><th>Abnormal (CAR)</th><th>t-stat</th><th>p-value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>NVDA</td><td>Nasdaq Composite</td><td>1.45</td><td>&minus;12.63%</td><td>&minus;5.43</td><td>&lt;0.001</td></tr>
+              <tr><td>NVDA</td><td>S&amp;P 500</td><td>1.90</td><td>&minus;13.43%</td><td>&minus;5.30</td><td>&lt;0.001</td></tr>
+              <tr><td>NVDA</td><td>SOXX</td><td>0.48</td><td>&minus;13.20%</td><td>&minus;4.91</td><td>&lt;0.001</td></tr>
+              <tr><td>NVDA</td><td>SMH</td><td>0.65</td><td>&minus;12.41%</td><td>&minus;5.11</td><td>&lt;0.001</td></tr>
+              <tr><td>AMD</td><td>Nasdaq Composite</td><td>2.48</td><td>+9.03%</td><td>2.00</td><td>0.047</td></tr>
+              <tr><td>AMD</td><td>S&amp;P 500</td><td>3.22</td><td>+7.72%</td><td>1.59</td><td>0.114</td></tr>
+              <tr><td>AMD</td><td>SOXX</td><td>1.20</td><td>+5.43%</td><td>1.52</td><td>0.129</td></tr>
+              <tr><td>AMD</td><td>SMH</td><td>1.39</td><td>+8.35%</td><td>2.30</td><td>0.022</td></tr>
+              <tr><td>AVGO</td><td>Nasdaq Composite</td><td>1.65</td><td>+9.56%</td><td>3.16</td><td>0.002</td></tr>
+              <tr><td>AVGO</td><td>S&amp;P 500</td><td>2.11</td><td>+8.73%</td><td>2.66</td><td>0.008</td></tr>
+              <tr><td>AVGO</td><td>SOXX</td><td>0.66</td><td>+8.10%</td><td>2.68</td><td>0.008</td></tr>
+              <tr><td>AVGO</td><td>SMH</td><td>0.80</td><td>+9.57%</td><td>3.27</td><td>0.001</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          NVDA's abnormal decline is statistically significant (p&nbsp;&lt;&nbsp;0.001)
+          against all four benchmarks, and the estimate is tightly clustered
+          (&minus;12.4% to &minus;13.4%; in dollar terms, roughly $560B to
+          $606B against NVIDIA's Nov 6 market cap) &mdash; including against
+          SOXX and SMH, despite the circularity caveat above, which if
+          anything should shrink those two estimates. AVGO's abnormal gain is
+          significant against all four benchmarks too. AMD's is significant
+          against the Nasdaq Composite and SMH but not against the S&amp;P
+          500 or SOXX at the 5% level, so treat AMD's result as suggestive
+          rather than conclusive.
+        </p>
+
+        <h2 id="sensitivity">Event-window sensitivity</h2>
+        <p>
+          Repeating NVDA's test against the Nasdaq Composite over two
+          alternative windows &mdash; extending one day later to include the
+          Nov 11 rebound, and starting one trading day earlier from the Nov 6
+          close &mdash; checks whether the finding depends on the exact
+          two-day window chosen:
+        </p>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr><th>Window</th><th>Days</th><th>Abnormal (CAR)</th><th>t-stat</th><th>p-value</th><th>95% CI</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Nov 9-10 (primary)</td><td>2</td><td>&minus;12.63%</td><td>&minus;5.43</td><td>&lt;0.001</td><td>[&minus;17.2%, &minus;8.0%]</td></tr>
+              <tr><td>Nov 9-11 (+ rebound day)</td><td>3</td><td>&minus;12.07%</td><td>&minus;4.23</td><td>&lt;0.001</td><td>[&minus;17.7%, &minus;6.5%]</td></tr>
+              <tr><td>Nov 6-10 (from pre-event close)</td><td>3</td><td>&minus;11.43%</td><td>&minus;4.01</td><td>&lt;0.001</td><td>[&minus;17.0%, &minus;5.8%]</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The estimate moves within a narrow band (&minus;11.4% to
+          &minus;12.6%) and stays strongly significant across all three
+          window choices, which is evidence the Nov 9-10 finding isn't an
+          artifact of a cherry-picked date range &mdash; though all three
+          windows were chosen by the same person with knowledge of the
+          news timeline, which is a limitation common to this kind of
+          analysis (see <a href="#limitations">Limitations</a>).
+        </p>
+
+        <h2>Context: was the Nov 5 sector-wide selloff actually NVIDIA-specific too?</h2>
+        <p>
+          As a check on the "broad sector move" framing above, the same test
+          applied to November 5 alone (against the Nasdaq Composite) finds no
+          statistically significant abnormal return for any of the three
+          stocks:
+        </p>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr><th>Symbol</th><th>Abnormal (CAR)</th><th>t-stat</th><th>p-value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>NVDA</td><td>&minus;1.25%</td><td>&minus;0.76</td><td>0.450</td></tr>
+              <tr><td>AMD</td><td>&minus;3.83%</td><td>&minus;1.20</td><td>0.232</td></tr>
+              <tr><td>AVGO</td><td>&minus;1.23%</td><td>&minus;0.57</td><td>0.567</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          None of these are distinguishable from zero at conventional
+          significance levels, meaning each stock's November 5 decline is
+          statistically consistent with its own historical beta to the
+          Nasdaq Composite &mdash; i.e., a broad market/sector move the
+          model can explain, not a company-specific one. That supports
+          treating November 5 as separate context rather than part of the
+          scandal-reporting event window.
+        </p>
+
+        <h2>Finding 3: decomposing the $430B headline number</h2>
         <figure class="chart-figure">
-          <img src="assets/chart_nvda_waterfall.png" alt="Waterfall chart showing NVIDIA's market cap falling from 4,515 billion dollars on Nov 6 to 4,085 billion on Nov 10, with a positive 141 billion dollar market/sector effect offset by a negative 570 billion dollar scandal-specific effect." loading="lazy" />
-          <figcaption>NVIDIA market-cap bridge, Nov 6 close &rarr; Nov 10 close.</figcaption>
+          <img src="assets/chart_nvda_waterfall.png" alt="Waterfall chart showing NVIDIA's market cap falling from 4,515 billion dollars on Nov 6 to 4,085 billion on Nov 10, with a positive 141 billion dollar market/sector effect offset by a negative 570 billion dollar abnormal, unexplained effect." loading="lazy" />
+          <figcaption>NVIDIA market-cap bridge, Nov 6 close &rarr; Nov 10 close (Nasdaq Composite benchmark).</figcaption>
         </figure>
         <p>
-          Applying NVDA's beta (1.45) to the market's actual two-day move
-          implies the broad market/sector environment should have added
-          roughly <strong>+$141B</strong> to NVIDIA's market cap over those two
-          sessions. Instead, NVIDIA lost $429B net, meaning the
-          scandal-specific (abnormal) component was roughly
-          <strong>&minus;$570B</strong>, partially offset by that positive
-          market tailwind. In other words: the <strong>net</strong> $430B
-          figure actually understates the scandal's company-specific cost,
-          because it nets out a broad-market gain NVIDIA would otherwise have
-          captured alongside its peers.
+          Applying NVDA's beta (1.45, vs. the Nasdaq Composite) to the
+          market's actual two-day move implies the broad market/sector
+          environment should have added roughly <strong>+$141B</strong> to
+          NVIDIA's market cap over those two sessions. Instead, NVIDIA lost
+          $429B net, meaning the abnormal (unexplained) component was
+          approximately <strong>&minus;$570B</strong> (95% CI: &minus;$777B
+          to &minus;$363B) &mdash; partially offset by that positive market
+          tailwind. In other words: the <strong>net</strong> $430B figure
+          understates the size of the unexplained decline, because it nets
+          out a broad-market gain NVIDIA would otherwise have been expected
+          to capture alongside its peers. The wide confidence interval is
+          itself an important part of this result: the data support a large,
+          statistically significant abnormal decline, but not a precise
+          point estimate of its exact dollar size.
         </p>
 
-        <h2>Limitations &amp; caveats</h2>
+        <h2 id="limitations">Limitations &amp; caveats</h2>
         <ul>
           <li>
-            The underlying intelligence/espionage allegations are disputed and,
-            per Reuters, independently unverified. This analysis only measures
-            market reaction to the reporting, not the truth of the allegations.
+            <strong>Correlation, not causation.</strong> This analysis
+            documents a statistically significant abnormal stock-price
+            decline that coincided with a reporting window; it does not and
+            cannot establish that the reporting, or the underlying
+            allegations, caused that decline. See
+            <a href="#causation">Correlation vs. causation</a> above.
           </li>
           <li>
-            A single-factor market model is a simplification; it doesn't
-            capture semiconductor-sector-specific factors (e.g., a shared
-            industry catalyst that isn't reflected in the broad Nasdaq index).
-            A multi-factor model using an equal-weighted peer index as the
-            benchmark would likely sharpen these estimates further.
+            The underlying intelligence/espionage allegations are disputed
+            and, per Reuters, independently unverified. This analysis takes
+            no position on whether they are true.
           </li>
           <li>
-            This is a fast-moving story. NVIDIA reports Q3 FY2027 earnings on
-            November 17, 2026, which could materially change the stock's
-            trajectory and the durability of this estimate.
+            <strong>SOXX/SMH circularity.</strong> NVIDIA is a large
+            constituent of both semiconductor ETFs used as benchmarks here,
+            which mechanically tends to understate (not overstate) its
+            estimated abnormal return against those two benchmarks.
+          </li>
+          <li>
+            <strong>Classical standard errors.</strong> The significance
+            tests use ordinary-least-squares standard errors from the
+            estimation window and do not explicitly correct for
+            heteroskedasticity or serial correlation in returns (e.g., a
+            Newey-West adjustment), which is a common simplification in
+            event studies but can understate true uncertainty in some
+            market conditions.
+          </li>
+          <li>
+            <strong>Window and benchmark selection.</strong> The primary
+            event window and the specific sensitivity windows tested were
+            chosen with knowledge of the news timeline under study, an
+            inherent limitation of single-event case studies. No formal
+            correction for multiple comparisons was applied across the 12
+            benchmark/subject combinations and 3 event windows shown; the
+            consistency of the sign and significance of the result across
+            all of them is informative but not a substitute for a
+            pre-registered test.
+          </li>
+          <li>
+            A single-factor market model is a simplification and cannot rule
+            out other contemporaneous, NVIDIA-specific news not captured in
+            the public reporting reviewed for this piece (for example,
+            analyst notes, options-market positioning, or index-fund
+            rebalancing flows).
+          </li>
+          <li>
+            The one-year estimation window assumes a stable beta; NVIDIA's
+            sensitivity to the market could plausibly have shifted during
+            2026's broader AI-valuation volatility, which would affect the
+            expected-return baseline against which the abnormal return is
+            measured.
+          </li>
+          <li>
+            This is a fast-moving story. NVIDIA's Q3 FY2027 earnings call on
+            November 17, 2026 (after this event window) could materially
+            change the stock's trajectory and the interpretation of these
+            results.
           </li>
           <li>
             Shares-outstanding figures are point-in-time estimates and change
@@ -221,26 +466,34 @@
           </li>
         </ul>
 
-        <h2>Sources</h2>
+        <h2 id="sources">Sources</h2>
         <ul class="sources-list">
           <li><a href="https://www.gurufocus.com/news/9192150/nvidia-faces-75-billion-chip-scandal-after-430-billion-wipeout" target="_blank" rel="noopener">Nvidia faces $7.5 billion chip scandal after $430 billion wipeout (GuruFocus)</a></li>
           <li><a href="https://www.theglobeandmail.com/business/article-nvidia-stock-market-value-ceo-jensen-huang-affair-fallout/" target="_blank" rel="noopener">Nvidia shares plunge for second day as Huang affair fallout deepens (The Globe and Mail)</a></li>
           <li><a href="https://finance.yahoo.com/markets/stocks/articles/nvidia-sheds-430b-two-days-121546673.html" target="_blank" rel="noopener">Nvidia Sheds $430B in Two Days as Jensen Huang Faces Calls to Resign (Yahoo Finance)</a></li>
           <li><a href="https://cnbc.com/2026/11/11/nvidia-jensen-huang-affair-employee.html" target="_blank" rel="noopener">Nvidia prepares to oust Jensen Huang, WSJ reports; stock sinks (CNBC)</a></li>
           <li><a href="https://finance.yahoo.com/markets/stocks/articles/nvidia-erases-2026-gains-republicans-204550552.html" target="_blank" rel="noopener">Nvidia Erases 2026 Gains as Republicans Threaten Jensen Huang With Subpoena (Yahoo Finance)</a></li>
-          <li>Yahoo Finance historical market data (NVDA, AMD, AVGO, ^IXIC)</li>
+          <li><a href="https://www.fxstreet.com/news/did-the-ai-bubble-just-burst-semiconductor-index-sees-worst-sell-off-since-covid-202611051926" target="_blank" rel="noopener">Did the AI Bubble Just Burst? Semiconductor Index Sees Worst Selloff Since COVID (FXStreet)</a></li>
+          <li><a href="https://pro.thestreet.com/market-commentary/brutal-semiconductor-selloff-traces-its-roots-to-this-trend" target="_blank" rel="noopener">Brutal Semiconductor Selloff Traces Its Roots to This Trend (TheStreet)</a></li>
+          <li>Yahoo Finance historical market data (NVDA, AMD, AVGO, ^IXIC, ^GSPC, SOXX, SMH)</li>
+          <li>MacKinlay, A.C. (1997). "Event Studies in Economics and Finance." <em>Journal of Economic Literature</em>, 35(1), 13-39 &mdash; the standard reference for the statistical methodology used here.</li>
         </ul>
 
         <h2>Data &amp; code</h2>
         <p>
-          Raw daily prices, computed returns, and the summary table used in
-          this analysis:
+          Raw daily prices and returns across all seven symbols, the primary
+          decomposition, and the full statistical results:
           <a href="data/daily_prices.csv">daily_prices.csv</a>,
           <a href="data/daily_returns.csv">daily_returns.csv</a>,
-          <a href="data/summary.csv">summary.csv</a>. The event-study
-          calculations and chart-generation scripts:
+          <a href="data/summary.csv">summary.csv</a>,
+          <a href="data/robustness_benchmarks.csv">robustness_benchmarks.csv</a>,
+          <a href="data/sensitivity_windows.csv">sensitivity_windows.csv</a>.
+          The event-study calculations (Python, pandas/numpy/scipy.stats) and
+          chart-generation scripts:
           <a href="code/analysis.py">analysis.py</a>,
-          <a href="code/charts.py">charts.py</a>.
+          <a href="code/charts.py">charts.py</a>. Re-running
+          <code>analysis.py</code> reproduces every number in this piece from
+          the raw price data.
         </p>
       </div>
 

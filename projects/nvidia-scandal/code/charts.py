@@ -78,7 +78,7 @@ fig, ax = plt.subplots(figsize=(9.5, 5.6), dpi=200)
 event_start = pd.Timestamp("2026-11-09")
 event_end = pd.Timestamp("2026-11-10")
 ax.axvspan(event_start, event_end + pd.Timedelta(hours=18), color=BAD, alpha=0.10, zorder=0)
-ax.text(event_start, idx.values.max() * 1.015, "Scandal-specific\ncrash (Nov 9–10)",
+ax.text(event_start, idx.values.max() * 1.015, "Nov 9-10 event window\n(see analysis)",
         color=BAD, fontsize=10.5, fontweight="bold", va="bottom")
 
 series = [("NVDA", COL_NVDA, "NVDA"), ("AMD", COL_AMD, "AMD"), ("AVGO", COL_AVGO, "AVGO"), ("IXIC", COL_MKT, "Nasdaq Composite")]
@@ -130,14 +130,14 @@ fig.savefig("chart_two_day_divergence.png", dpi=200)
 plt.close(fig)
 
 # =================================================================
-# Chart 3 — NVDA waterfall: before -> market/sector effect -> scandal-specific -> after
+# Chart 3 — NVDA waterfall: before -> market/sector effect -> abnormal (unexplained) effect -> after
 # =================================================================
 before = summary.loc["NVDA", "mcap_before_B"]
 market_fx = summary.loc["NVDA", "market_explained_dollar_B"]
 abnormal_fx = summary.loc["NVDA", "abnormal_dollar_B"]
 after = summary.loc["NVDA", "mcap_after_B"]
 
-labels = ["Market cap\nNov 6 close", "Market/sector\neffect", "Scandal-specific\n(abnormal) effect", "Market cap\nNov 10 close"]
+labels = ["Market cap\nNov 6 close", "Market/sector\neffect", "Abnormal (unexplained)\neffect", "Market cap\nNov 10 close"]
 starts = [0, before, before + market_fx]
 heights = [before, market_fx, abnormal_fx]
 bar_colors = [TEXT_MUTED, GOOD if market_fx >= 0 else BAD, BAD if abnormal_fx < 0 else GOOD]

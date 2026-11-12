@@ -619,11 +619,29 @@ a {
   margin-top: 0.8rem;
 }
 
+.table-scroll {
+  overflow-x: auto;
+  margin: 1.8rem 0;
+}
+
+.table-scroll .data-table {
+  margin: 0;
+  min-width: 640px;
+}
+
 .data-table {
   width: 100%;
   border-collapse: collapse;
   margin: 1.8rem 0;
   font-size: 0.95rem;
+}
+
+.data-table caption {
+  caption-side: bottom;
+  text-align: left;
+  color: var(--slate);
+  font-size: 0.85rem;
+  padding-top: 0.6rem;
 }
 
 .data-table th,
