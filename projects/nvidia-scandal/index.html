@@ -48,8 +48,8 @@
         <h1>The $430 billion NVIDIA market reaction: how much was really lost?</h1>
         <p class="subhead">
           A statistical event-study analysis of NVIDIA's stock price around
-          its November 2026 national security-related reporting window
-          &mdash; benchmarked against AMD,
+          its November 2026 national security-related reporting window,
+          benchmarked against AMD,
           Broadcom, the Nasdaq Composite, the S&amp;P 500, and two
           semiconductor-sector ETFs, with significance tests, confidence
           intervals, and sensitivity checks across multiple event windows.
@@ -73,11 +73,11 @@
             &minus;$570B</strong> (95% CI: &minus;$778B to &minus;$362B;
             t&nbsp;=&nbsp;&minus;5.40, p&nbsp;&lt;&nbsp;0.001 against the
             Nasdaq Composite, and significant against three other benchmarks
-            too &mdash; see <a href="#robustness">Robustness</a>). This
+            too (see <a href="#robustness">Robustness</a>). This
             abnormal decline is <em>statistically associated with</em> the
             window in which this national security-related reporting
             escalated. It is not
-            proof that the reporting <em>caused</em> the decline &mdash;
+            proof that the reporting <em>caused</em> the decline:
             event studies measure correlation, not causation. Read
             <a href="#causation">Correlation vs. causation</a> and
             <a href="#limitations">Limitations</a> before treating this as a
@@ -104,9 +104,9 @@
           the window in which this reporting was concentrated.
         </p>
         <p>
-          The story is still developing at the time of writing (NVIDIA's Q3
-          FY2027 earnings call is scheduled for November 17, 2026 &mdash;
-          after the event window studied here), so the figures below reflect
+          The story is still developing at the time of writing. NVIDIA's Q3
+          FY2027 earnings call is scheduled for November 17, 2026, after
+          the event window studied here, so the figures below reflect
           data through the November 11, 2026 close.
         </p>
         <p>
@@ -133,7 +133,7 @@
           not, and cannot, establish that the reporting (or the underlying
           allegations, which remain disputed) <em>caused</em> investors to
           sell NVDA, as opposed to some other contemporaneous but unobserved
-          factor &mdash; for example, analyst rating changes, options-market
+          factor, for example analyst rating changes, options-market
           positioning, index-fund flows, or firm-specific news not
           captured in the public reporting reviewed here. What the data can
           support is narrower and still meaningful: NVIDIA's stock behaved in
@@ -143,8 +143,8 @@
           intense, and that pattern is robust to the choice of benchmark and
           event window tested below. Readers should not interpret the dollar
           figures in this piece as a proven, causally-attributed "cost" of
-          this reporting &mdash; they are a statistical estimate of an
-          abnormal return, with the uncertainty that implies.
+          this reporting: they are a statistical estimate of an abnormal
+          return, with the uncertainty that implies.
         </p>
 
         <h2>The question</h2>
@@ -161,13 +161,13 @@
         </p>
 
         <h2>Data &amp; methodology</h2>
-        <p>Daily OHLC price data for NVDA, AMD, AVGO, and four benchmarks
-        &mdash; the Nasdaq Composite (^IXIC), the S&amp;P 500 (^GSPC), the
-        iShares Semiconductor ETF (SOXX), and the VanEck Semiconductor ETF
-        (SMH) &mdash; from January 2024 through November 11, 2026, sourced
-        from Yahoo Finance's public market-data endpoint. Shares-outstanding
-        figures (NVDA ~24.19B, AMD ~1.63B, AVGO ~4.77B) from public SEC
-        filings and market-data providers as of November 2026.</p>
+        <p>Daily OHLC price data from January 2024 through November 11, 2026
+        for NVDA, AMD, AVGO, and four benchmarks: the Nasdaq Composite
+        (^IXIC), the S&amp;P 500 (^GSPC), the iShares Semiconductor ETF
+        (SOXX), and the VanEck Semiconductor ETF (SMH), sourced from Yahoo
+        Finance's public market-data endpoint. Shares-outstanding figures
+        (NVDA ~24.19B, AMD ~1.63B, AVGO ~4.77B) from public SEC filings and
+        market-data providers as of November 2026.</p>
 
         <p>This is a standard <strong>event-study / market-model</strong>
         approach (MacKinlay, 1997, <em>Journal of Economic Literature</em>)
@@ -208,7 +208,7 @@
             from its estimation-window mean, and the last term grows when
             the event window's average benchmark return
             (<em>R&#772;<sub>event</sub></em>) is unusual relative to the
-            estimation period (<em>R&#772;<sub>est</sub></em>) &mdash; exactly
+            estimation period (<em>R&#772;<sub>est</sub></em>), exactly
             the case here. The test statistic <code>t = CAR / SE</code> is
             compared to a Student's t-distribution with 250 degrees of
             freedom (252 estimation-window observations &minus; 2 estimated
@@ -230,7 +230,7 @@
         against the Nasdaq Composite) to the actual Nasdaq return on each of
         the two event days and summing the daily abnormal returns reproduces
         a CAR of &minus;12.6305%, which against NVIDIA's $4,514.82B market
-        cap on Nov 6 gives &minus;$570.24B &mdash; matching the figure used
+        cap on Nov 6 gives &minus;$570.24B, matching the figure used
         throughout this piece. <code>analysis.py</code> (linked below)
         reproduces this and every other number here from the raw price data.</p>
 
@@ -242,7 +242,7 @@
         against one benchmark, it would be fragile. One caveat is worth
         flagging explicitly: NVIDIA is itself a large constituent of both
         SOXX and SMH, so regressing NVDA against an index that partly
-        contains NVDA is mechanically a little circular &mdash; it tends to
+        contains NVDA is mechanically a little circular: it tends to
         <em>understate</em> the true abnormal return, not overstate it,
         because some of NVIDIA's own move is embedded in the benchmark's
         move. The SOXX/SMH results below should be read with that in mind.</p>
@@ -269,9 +269,9 @@
           concerns described above rather than anything NVIDIA-specific.
           That pattern breaks on November 9-10: AMD and Broadcom turn
           sharply upward while NVIDIA keeps falling. That divergence is
-          consistent with an idiosyncratic, company-specific shock to NVDA
-          &mdash; though, as above, this chart alone shows correlation with
-          the event window, not its cause.
+          consistent with an idiosyncratic, company-specific shock to NVDA,
+          though as above, this chart alone shows correlation with the
+          event window, not its cause.
         </p>
 
         <h2>Finding 2: peers gained value on the same days NVIDIA lost it</h2>
@@ -306,7 +306,7 @@
           reliably negative, AMD's and AVGO's are reliably positive. AMD's
           result is the least robust of the three (p&nbsp;=&nbsp;0.048,
           and not significant against two of the other three benchmarks
-          tested below) &mdash; worth keeping in mind given it's a smaller,
+          tested below), worth keeping in mind given it's a smaller,
           more volatile stock (beta 2.48, roughly 70% more volatile than
           NVDA's beta of 1.45 against this benchmark).
         </p>
@@ -341,7 +341,7 @@
           NVDA's abnormal decline is statistically significant (p&nbsp;&lt;&nbsp;0.001)
           against all four benchmarks, and the estimate is tightly clustered
           (&minus;12.4% to &minus;13.4%; in dollar terms, roughly $560B to
-          $606B against NVIDIA's Nov 6 market cap) &mdash; including against
+          $606B against NVIDIA's Nov 6 market cap), including against
           SOXX and SMH, despite the circularity caveat above, which if
           anything should shrink those two estimates. AVGO's abnormal gain is
           significant against all four benchmarks too. AMD's is significant
@@ -353,9 +353,9 @@
         <h2 id="sensitivity">Event-window sensitivity</h2>
         <p>
           Repeating NVDA's test against the Nasdaq Composite over two
-          alternative windows &mdash; extending one day later to include the
+          alternative windows (extending one day later to include the
           Nov 11 rebound, and starting one trading day earlier from the Nov 6
-          close &mdash; checks whether the finding depends on the exact
+          close) checks whether the finding depends on the exact
           two-day window chosen:
         </p>
         <div class="table-scroll">
@@ -374,7 +374,7 @@
           The estimate moves within a narrow band (&minus;11.4% to
           &minus;12.6%) and stays strongly significant across all three
           window choices, which is evidence the Nov 9-10 finding isn't an
-          artifact of a cherry-picked date range &mdash; though all three
+          artifact of a cherry-picked date range, though all three
           windows were chosen by the same person with knowledge of the
           news timeline, which is a limitation common to this kind of
           analysis (see <a href="#limitations">Limitations</a>).
@@ -403,7 +403,7 @@
           None of these are distinguishable from zero at conventional
           significance levels, meaning each stock's November 5 decline is
           statistically consistent with its own historical beta to the
-          Nasdaq Composite &mdash; i.e., a broad market/sector move the
+          Nasdaq Composite, i.e., a broad market/sector move the
           model can explain, not a company-specific one. That supports
           treating November 5 as separate context rather than part of the
           primary event window.
@@ -421,7 +421,7 @@
           NVIDIA's market cap over those two sessions. Instead, NVIDIA lost
           $429B net, meaning the abnormal (unexplained) component was
           approximately <strong>&minus;$570B</strong> (95% CI: &minus;$778B
-          to &minus;$362B) &mdash; partially offset by that positive market
+          to &minus;$362B), partially offset by that positive market
           tailwind. In other words: the <strong>net</strong> $430B figure
           understates the size of the unexplained decline, because it nets
           out a broad-market gain NVIDIA would otherwise have been expected
@@ -508,7 +508,7 @@
           <li><a href="https://www.fxstreet.com/news/did-the-ai-bubble-just-burst-semiconductor-index-sees-worst-sell-off-since-covid-202611051926" target="_blank" rel="noopener">Did the AI Bubble Just Burst? Semiconductor Index Sees Worst Selloff Since COVID (FXStreet)</a></li>
           <li><a href="https://pro.thestreet.com/market-commentary/brutal-semiconductor-selloff-traces-its-roots-to-this-trend" target="_blank" rel="noopener">Brutal Semiconductor Selloff Traces Its Roots to This Trend (TheStreet)</a></li>
           <li>Yahoo Finance historical market data (NVDA, AMD, AVGO, ^IXIC, ^GSPC, SOXX, SMH)</li>
-          <li>MacKinlay, A.C. (1997). "Event Studies in Economics and Finance." <em>Journal of Economic Literature</em>, 35(1), 13-39 &mdash; the standard reference for the statistical methodology used here.</li>
+          <li>MacKinlay, A.C. (1997). "Event Studies in Economics and Finance." <em>Journal of Economic Literature</em>, 35(1), 13-39. The standard reference for the statistical methodology used here.</li>
         </ul>
 
         <h2>Data &amp; code</h2>
