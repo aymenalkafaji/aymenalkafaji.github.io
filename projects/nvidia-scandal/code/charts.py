@@ -8,16 +8,16 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 from matplotlib.patches import FancyArrowPatch
 
-# ---- palette (validated: dark-mode-safe variants of the site's brand hues) ----
-COL_NVDA = "#DD6B20"   # amber/orange  — the subject
-COL_AMD  = "#0EA5B8"   # cyan/teal
-COL_AVGO = "#8B5CF6"   # violet
-COL_MKT  = "#9B9BB0"   # neutral muted grey — Nasdaq benchmark
-TEXT      = "#F4F3FA"
-TEXT_MUTED = "#B9B8CC"
-GRID      = "#2A2838"
-GOOD      = "#34D399"
-BAD       = "#F87171"
+# ---- palette (validated against the site's Depth/#12131F navy block) ----
+COL_NVDA = "#BD6F50"   # terracotta/signal — the subject, the site's brand accent
+COL_AMD  = "#3F6FB0"   # steel blue
+COL_AVGO = "#B08D1F"   # bronze
+COL_MKT  = "#9A9AA5"   # neutral muted grey — Nasdaq benchmark
+TEXT      = "#F5F4F1"
+TEXT_MUTED = "#B7B6C2"
+GRID      = "#2A2B3A"
+GOOD      = "#4C9A6A"
+BAD       = "#C24B3F"
 
 plt.rcParams.update({
     "figure.facecolor": "none",
@@ -67,7 +67,7 @@ for col, color, label in series:
     line, = ax.plot(idx.index, idx[col], **plot_kwargs)
     # highlight the two event-window points
     ax.scatter(idx.loc[[event_start, event_end]].index, idx.loc[[event_start, event_end], col],
-                color=color, s=28, zorder=4, edgecolor="#0A0A14", linewidth=0.8)
+                color=color, s=28, zorder=4, edgecolor="#12131F", linewidth=0.8)
     ax.annotate(label, xy=(idx.index[-1], idx[col].iloc[-1]), xytext=(8, 0),
                 textcoords="offset points", color=color, fontsize=11.5, fontweight="bold",
                 va="center")
@@ -122,7 +122,7 @@ bar_colors = [TEXT_MUTED, GOOD if market_fx >= 0 else BAD, BAD if abnormal_fx < 
 fig, ax = plt.subplots(figsize=(9, 5.6), dpi=200)
 
 # base + step bars
-ax.bar(0, before, width=0.6, color="#4B4A5E", zorder=3)
+ax.bar(0, before, width=0.6, color="#6B6C7C", zorder=3)
 cum = before
 step_x = [1, 2]
 step_vals = [market_fx, abnormal_fx]
@@ -136,7 +136,7 @@ for x, v, c in zip(step_x, step_vals, step_colors):
                 xytext=(0, offset), textcoords="offset points", ha="center", va=va,
                 color=TEXT, fontsize=12.5, fontweight="bold")
     cum += v
-ax.bar(3, cum, width=0.6, color="#4B4A5E", zorder=3)
+ax.bar(3, cum, width=0.6, color="#6B6C7C", zorder=3)
 
 for x, v in [(0, before), (3, cum)]:
     ax.annotate(f"${v:,.0f}B", xy=(x, v), xytext=(0, 6), textcoords="offset points",
