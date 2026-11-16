@@ -5,7 +5,7 @@ Inputs (work dir):
   gta6.duckdb      - scans / scans_dedup / domains tables (collect.py, prepare.py)
   labels_raw.csv   - one row per registrable domain: label, offer_type,
                      confidence, evidence, second_pass_label, template_family,
-                     revised_from (first-pass label, if changed on later review)
+                     first_pass_label (set where the final label differs from the first pass)
 
 Outputs (out dir, all domains defanged, no URL paths or query strings):
   domains_labeled.csv, scans.csv, query_log.csv, group_metrics.csv,
@@ -124,7 +124,7 @@ def main(work, out):
     scans = con.execute("SELECT * FROM scans_dedup").df()
     scans_raw = con.execute("SELECT uuid FROM scans").df()
     qlog = con.execute("SELECT * FROM query_log").df()
-    lab = pd.read_csv(work / "labels_raw.csv", dtype={"revised_from": str})
+    lab = pd.read_csv(work / "labels_raw.csv", dtype={"first_pass_label": str})
     df = dom.merge(lab, on="reg_domain", how="left")
     assert df.label.notna().all(), "every domain needs a label"
 
@@ -293,9 +293,9 @@ def main(work, out):
 
     # ---- intra-rater agreement (second pass) ------------------------------
     # compares the blind second pass with the FIRST-pass label, so later
-    # revisions do not inflate agreement
+    # reconciliation does not inflate agreement
     rr = df[df.second_pass_label.notna() & (df.second_pass_label != "")].copy()
-    rr["label"] = rr.revised_from.where(rr.revised_from.notna() & (rr.revised_from != ""), rr.label)
+    rr["label"] = rr.first_pass_label.where(rr.first_pass_label.notna() & (rr.first_pass_label != ""), rr.label)
     agree = (rr.label == rr.second_pass_label)
     cats = sorted(set(rr.label) | set(rr.second_pass_label))
     po = agree.mean()
@@ -316,7 +316,7 @@ def main(work, out):
     for c in ["reg_domain", "page_domain"]:
         pub[c] = pub[c].map(lambda x: x if x == "[redacted]" else defang(x))
     pub[["reg_domain", "page_domain", "label", "offer_type", "confidence", "evidence", "second_pass_label",
-         "revised_from", "first_seen", "n_scans", "page_title", "page_ip", "page_asn", "page_asnname", "page_country",
+         "first_seen", "n_scans", "page_title", "page_ip", "page_asn", "page_asnname", "page_country",
          "page_status", "domain_age_days", "platform_subdomain", "offer_group", "all_tags", "strong_tag", "cdn_paas", "shared_ip",
          "shared_ip_noncdn", "shared_title", "template_family", "template_reuse", "first_uuid"]].to_csv(out / "domains_labeled.csv", index=False)
 

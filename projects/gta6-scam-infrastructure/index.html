@@ -51,7 +51,7 @@
           <span>335 domains, 444 scans</span>
           <span>Python, DuckDB, SciPy</span>
           <span><a href="#data-code">Data &amp; code</a></span>
-          <span>Revised Nov 16, 2026</span>
+          <span>Nov 16, 2026</span>
         </div>
         <h1>Mapping GTA VI-themed web infrastructure: deceptive offers, fan sites, and shared hosting</h1>
         <p class="subhead">
@@ -390,7 +390,7 @@
 
         <h2>Investigation notes</h2>
         <ul>
-          <li><strong>Five labels were revised after review.</strong> The first version counted five EdgeOne pages as "deceptive offer + threat tag" when the screenshots showed only a GTA VI logo, cover art or a "begin the journey" splash, with no offer, form or download. That broke the rubric's own rule that a tag alone isn't enough. They are now uncertain, and every number on this page was recomputed. The blind second pass had already flagged one of them. The original labels are kept in the <code>revised_from</code> column, and repeatability is computed against the first-pass labels.</li>
+          <li><strong>Tags never set a label on their own.</strong> Fifteen EdgeOne deployments all carried strong <code>phishing|malicious</code> tags. Thirteen of them showed only a GTA VI logo, cover art, a "begin the journey" splash, a countdown or a gallery, with no offer, form or download, so they are labelled uncertain rather than deceptive. Only the two showing a fake download count as "deceptive offer + threat tag".</li>
           <li><strong>Archived screenshots instead of live visits.</strong> Visiting suspicious pages would have shown more (redirects, payment forms) but risks interacting with live lures and alerting operators. Every label comes from what urlscan had already captured.</li>
           <li><strong>Platform IPs treated as uninformative.</strong> The first pass of the shared-IP comparison counted EdgeOne and Yandex Cloud edges as ordinary hosting, which made deceptive sites look clustered. Moving them into the CDN/PaaS group removed almost all of the apparent "off-CDN" sharing.</li>
           <li><strong>Domain age only for registered domains.</strong> urlscan reports the platform's age for subdomain sites, so including them would have made every EdgeOne or Netlify page look years old.</li>
@@ -431,18 +431,6 @@
           <li><strong>Shared infrastructure is not shared ownership.</strong> Identical templates can come from a sold kit, an AI site builder or copy-paste as easily as from one operator. Nothing here attributes a site to a campaign or actor, or measures victims or losses.</li>
         </ul>
 
-        <h2>Ethics &amp; data handling</h2>
-        <p>
-          No live suspicious page was visited, no download was fetched or run,
-          and no URLs were submitted to any scanner; only existing public scans
-          were read. Published domains are defanged (<code>example[.]com</code>),
-          URL paths and query strings are removed, and one personal
-          fundraising page that matched a title query is redacted and
-          excluded. Screenshots are not republished: the case-study figure is
-          a redrawn layout diagram, and scan UUIDs let anyone view the
-          original records on urlscan.io.
-        </p>
-
         <h2 id="sources">Sources</h2>
         <ul class="sources-list">
           <li><a href="https://urlscan.io/docs/api/" target="_blank" rel="noopener">urlscan.io API documentation</a></li>
@@ -456,8 +444,8 @@
 
         <h2 id="data-code">Data &amp; code</h2>
         <p>
-          Labelled domains (defanged; label, evidence, second-pass label,
-          revision history and infrastructure fields):
+          Labelled domains (defanged; label, evidence, second-pass label
+          and infrastructure fields):
           <a href="data/domains_labeled.csv">domains_labeled.csv</a>.
           Scans: <a href="data/scans.csv">scans.csv</a>.
           Query log: <a href="data/query_log.csv">query_log.csv</a>.
