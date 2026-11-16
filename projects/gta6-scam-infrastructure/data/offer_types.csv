@@ -1,0 +1,15 @@
+offer_group,offer_type,corroborated_malicious,suspicious_offer
+"Branded gate, content hidden",branded_gate,5,0
+Crypto presale or wallet connect,token_presale,0,2
+Crypto presale or wallet connect,wallet_connect,2,0
+"Fake download, early access or port",early_access,0,2
+"Fake download, early access or port",fake_download,2,8
+"Fake download, early access or port",fake_mobile,2,4
+"Fake download, early access or port",fake_pc_mobile,0,2
+Fake pre-order or key store,fake_key_store,0,1
+Fake pre-order or key store,fake_preorder,0,8
+Gambling or money generator,gambling_lure,0,2
+Gambling or money generator,money_generator,0,1
+"Giveaway, free key or free copy",free_game,1,1
+"Giveaway, free key or free copy",free_key,0,4
+"Giveaway, free key or free copy",giveaway,0,7

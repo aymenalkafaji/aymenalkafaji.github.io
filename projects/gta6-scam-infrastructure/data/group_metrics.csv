@@ -1,0 +1,10 @@
+definition,metric,description,deceptive_k,deceptive_n,deceptive_pct,deceptive_ci,fan_k,fan_n,fan_pct,fan_ci,diff_pp,diff_ci,fisher_p
+primary,shared_ip,Shares an IP with another relevant domain (any network),27.0,54,50.0,37.1-62.9,58.0,136,42.6,34.6-51.0,7.4,-8.0 to 22.5,0.4193
+primary,shared_ip_noncdn,Shares an IP on a non-CDN/PaaS network,2.0,54,3.7,1.0-12.5,0.0,136,0.0,0.0-2.7,3.7,-0.1 to 12.5,0.0797
+primary,shared_title,Shares an exact page title with another domain,5.0,54,9.3,4.0-19.9,4.0,136,2.9,1.1-7.3,6.3,-0.5 to 17.1,0.1212
+primary,template_reuse,Belongs to a visually identical template family (2+ domains),18.0,54,33.3,22.2-46.6,4.0,136,2.9,1.1-7.3,30.4,18.5 to 43.8,0.0
+primary,cdn_paas,Hosted on a major CDN/PaaS network,39.0,54,72.2,59.1-82.4,115.0,136,84.6,77.5-89.7,-12.3,-26.4 to 0.0,0.0645
+primary,platform_subdomain,Deployed on a free site-hosting platform subdomain,14.0,54,25.9,16.1-38.9,24.0,136,17.6,12.2-24.9,8.3,-3.9 to 22.4,0.2288
+primary,strong_tag,Carries a strong third-party threat tag,12.0,54,22.2,13.2-34.9,1.0,136,0.7,0.1-4.0,21.5,11.9 to 34.2,0.0
+primary,new_domain,Registered domain under 30 days old at first scan (platform subdomains excluded),11.0,40,27.5,16.1-42.8,50.0,112,44.6,35.8-53.9,-17.1,-31.8 to 0.6,0.0629
+primary,domain_age_median_days,Median domain age at first scan (days),,40,64.0,,,112,63.5,,0.5,,0.5494

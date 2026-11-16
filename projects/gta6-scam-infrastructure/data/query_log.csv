@@ -1,0 +1,17 @@
+query,page,retrieved_utc,returned,total,has_more,search_date_limit_days
+page.domain:gta6*,0,2026-11-16T18:28:23.495309+00:00,100,145,False,30
+page.domain:gta6*,1,2026-11-16T18:28:27.141631+00:00,45,145,False,30
+page.domain:gtavi*,0,2026-11-16T18:28:30.701784+00:00,35,35,False,30
+page.domain:gta-6*,0,2026-11-16T18:28:34.160246+00:00,12,12,False,30
+page.domain:gta-vi*,0,2026-11-16T18:28:37.382624+00:00,6,6,False,30
+page.domain:gtavi6*,0,2026-11-16T18:28:40.655471+00:00,0,0,False,30
+page.domain:grandtheftauto6*,0,2026-11-16T18:28:43.828847+00:00,1,1,False,30
+page.domain:gta6-*,0,2026-11-16T18:28:47.125499+00:00,10,10,False,30
+"page.title:""GTA VI""",0,2026-11-16T18:28:50.756681+00:00,100,130,False,30
+"page.title:""GTA VI""",1,2026-11-16T18:28:55.133120+00:00,30,130,False,30
+"page.title:""GTA 6""",0,2026-11-16T18:29:00.304042+00:00,100,169,False,30
+"page.title:""GTA 6""",1,2026-11-16T18:29:04.096945+00:00,69,169,False,30
+"page.title:""Grand Theft Auto VI""",0,2026-11-16T18:29:07.918687+00:00,64,64,False,30
+"page.title:""Grand Theft Auto 6""",0,2026-11-16T18:29:11.479434+00:00,4,4,False,30
+task.domain:gta6*,0,2026-11-16T18:29:15.163212+00:00,100,143,False,30
+task.domain:gta6*,1,2026-11-16T18:29:19.469156+00:00,43,143,False,30
