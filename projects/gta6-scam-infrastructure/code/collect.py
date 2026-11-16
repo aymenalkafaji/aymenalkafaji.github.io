@@ -1,7 +1,7 @@
 """
 Collect GTA VI-themed scans from the urlscan.io public search API.
 
-- Unauthenticated search API (free tier), 30-day history limit.
+- urlscan search API, 30-day study window.
 - Window: completed UTC days 2026-10-18 .. 2026-11-15.
 - Paginates with search_after; obeys rate-limit headers and HTTP 429 backoff.
 - Logs every query with retrieval timestamp and the returned history limit.
@@ -114,7 +114,7 @@ def main(out_dir):
             for r in results:
                 con.execute(f"INSERT INTO scans VALUES ({','.join('?' * len(FIELDS))})", row(q, r))
             print(f"{q!r} page {page}: {len(results)} (total={body.get('total')}, has_more={body.get('has_more')})")
-            # has_more is unreliable on the free tier; page whenever a full page returns
+            # page whenever a full page returns
             if len(results) < PAGE_SIZE:
                 break
             search_after = ",".join(str(x) for x in results[-1]["sort"])

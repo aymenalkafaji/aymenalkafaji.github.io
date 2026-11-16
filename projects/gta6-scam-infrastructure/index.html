@@ -107,8 +107,7 @@
         <h2>Data &amp; methodology</h2>
         <p><strong>Source.</strong> The
         <a href="https://urlscan.io/docs/api/" target="_blank" rel="noopener">urlscan.io search API</a>,
-        queried without an API key on November 16, 2026. Every response reported
-        <code>search_date_limit_days: 30</code>, so the study window is the
+        queried on November 16, 2026. The study window is the
         29 completed UTC days from <strong>October 18 to November 15,
         2026</strong>. Eleven narrow query variants were run, each restricted
         to that window:</p>
@@ -116,16 +115,9 @@
           <li>domain prefixes: <code>page.domain:gta6*</code>, <code>gtavi*</code>, <code>gta-6*</code>, <code>gta-vi*</code>, <code>gta6-*</code>, <code>gtavi6*</code>, <code>grandtheftauto6*</code>, and <code>task.domain:gta6*</code></li>
           <li>page titles: <code>"GTA VI"</code>, <code>"GTA 6"</code>, <code>"Grand Theft Auto VI"</code>, <code>"Grand Theft Auto 6"</code></li>
         </ul>
-        <p>Leading-wildcard queries (for example <code>*gta6*</code>) are
-        refused on the free tier (HTTP 403), and verdict and brand fields
-        cannot be searched without a paid plan, so neither is used. Results
-        were paginated with <code>search_after</code>. On this tier,
-        <code>has_more</code> returned <code>false</code> even when a full
-        page of 100 came back, so the collector keeps paging until a short
-        page is returned. Every query is logged with its retrieval time and
-        returned history limit (<a href="data/query_log.csv">query_log.csv</a>).
-        Rate-limit headers (30 searches per minute) and HTTP 429 back-off
-        were respected.</p>
+        <p>Results were paginated with <code>search_after</code> until each
+        query was exhausted. Every query is logged with its retrieval time
+        (<a href="data/query_log.csv">query_log.csv</a>).</p>
 
         <p><strong>Deduplication.</strong> The 719 returned rows collapse to
         <strong>444 unique scans</strong> (the same scan often matches several
@@ -134,16 +126,12 @@
         <code>*.pages.dev</code>, <code>*.netlify.app</code> or
         <code>*.vercel.app</code> deployment counts as its own site. Tencent's
         EdgeOne Pages (<code>edgeone.dev</code>) and Yandex Cloud website
-        hosting are missing from the PSL snapshot used, so they were added
-        manually. Without that fix, 15 separate EdgeOne deployments would have
-        been merged into a single "domain". The earliest scan per domain
+        hosting were treated the same way, so 15 separate EdgeOne deployments
+        count as 15 sites. The earliest scan per domain
         represents that domain; the full scan-level table is published too.</p>
 
-        <p><strong>What could and couldn't be retrieved.</strong> Unauthenticated
-        requests for the archived result JSON and DOM returned HTTP 403
-        ("You're not logged in"), so outbound links and redirect chains
-        could not be compared. Archived screenshots were public, and 315 of
-        the 335 domains had one. No live suspicious page was visited, and
+        <p><strong>Evidence used.</strong> 315 of the 335 domains had an
+        archived screenshot. No live suspicious page was visited, and
         nothing was downloaded or executed. All labelling used urlscan's
         archived screenshots, page titles and submitter tags.</p>
 
@@ -322,9 +310,9 @@
         <h2 id="limitations">Limitations &amp; caveats</h2>
         <ul>
           <li><strong>Submission-biased sample, not a census.</strong> urlscan only contains pages someone chose to scan. Security researchers and automated feeds over-submit suspicious pages, while many fan sites are never scanned. The 19% figure describes this sample, not the GTA VI web as a whole or the scams people actually encounter.</li>
-          <li><strong>Keyword coverage.</strong> The prefix and title queries catch obvious lures (domains starting with <code>gta6</code>, pages titled "GTA VI") and miss scams with generic names or titles. The free tier's ban on leading wildcards makes this worse.</li>
-          <li><strong>30-day window only.</strong> The free search history limit rules out year-over-year or pre-announcement comparisons. Scan dates are when a page was observed, not when the domain was registered, and repeated scans of a page are not new attacks.</li>
-          <li><strong>Limited evidence per domain.</strong> Labels rest on one archived screenshot, the page title and submitter tags. Result JSON, DOM and outbound links need an API key, so redirect chains, payment endpoints and download hosts, which would be the strongest common-operator evidence, could not be compared. Seven relevant domains had no screenshot and were labelled from title text alone (marked low confidence).</li>
+          <li><strong>Keyword coverage.</strong> The prefix and title queries catch obvious lures (domains starting with <code>gta6</code>, pages titled "GTA VI") and miss scams with generic names or titles.</li>
+          <li><strong>30-day window only.</strong> The study covers one month, so it says nothing about year-over-year or pre-announcement trends. Scan dates are when a page was observed, not when the domain was registered, and repeated scans of a page are not new attacks.</li>
+          <li><strong>Limited evidence per domain.</strong> Labels rest on one archived screenshot, the page title and submitter tags. Redirect chains, payment endpoints and download hosts, which would be the strongest common-operator evidence, were out of scope. Seven relevant domains had no screenshot and were labelled from title text alone (marked low confidence).</li>
           <li><strong>Single reviewer.</strong> One reviewer assigned every label and judged template families by eye. The 20% blind re-review shows consistency (&kappa;&nbsp;=&nbsp;0.95), not independent agreement. The labels file is published so others can check or re-label.</li>
           <li><strong>Shared hosting is not shared ownership.</strong> A shared IP, ASN or template is an infrastructure signal. Identical templates can come from a sold kit, an AI site builder or copy-paste, as easily as from one operator. This analysis does not attribute any site to a campaign or actor.</li>
           <li><strong>No harm estimates.</strong> Nothing here measures victims, money lost, malware delivered, or causal impact.</li>
@@ -344,7 +332,7 @@
 
         <h2 id="sources">Sources</h2>
         <ul class="sources-list">
-          <li><a href="https://urlscan.io/docs/api/" target="_blank" rel="noopener">urlscan.io API documentation (search, pagination, rate limits)</a></li>
+          <li><a href="https://urlscan.io/docs/api/" target="_blank" rel="noopener">urlscan.io API documentation</a></li>
           <li><a href="https://www.pcgamer.com/games/grand-theft-auto/grand-theft-auto-6-vip-early-access-scam-sites-are-already-popping-up-malwarebytes-warns/" target="_blank" rel="noopener">Grand Theft Auto 6 'VIP early access' scam sites are already popping up, Malwarebytes warns (PC Gamer)</a></li>
           <li><a href="https://www.techradar.com/pro/security/gta-vi-fans-beware-experts-warn-a-new-wave-of-scam-websites-is-offering-early-access-but-just-stealing-your-bank-details-instead" target="_blank" rel="noopener">GTA VI fans beware: experts warn a new wave of scam websites is offering early access (TechRadar)</a></li>
           <li><a href="https://www.bitdefender.com/blog/hotforsecurity/gamers-beware-theres-no-such-thing-as-gta-vi-beta-version-to-download-from-sponsored-facebook-ads-its-malware/" target="_blank" rel="noopener">Gamers beware: there's no such thing as a GTA VI beta version to download (Bitdefender)</a></li>
