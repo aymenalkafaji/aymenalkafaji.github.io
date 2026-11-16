@@ -1,0 +1,4 @@
+level,deceptive_k,deceptive_n,deceptive_pct,deceptive_ci,fan_k,fan_n,fan_pct,fan_ci,diff_pp,diff_ci,fisher_p,precision_pct
+domain,14,49,28.6,17.8-42.4,4,136,2.9,1.1-7.3,25.6,14.0 to 39.6,0.0,77.8
+mirrors_collapsed,9,46,19.6,10.7-33.2,0,134,0.0,0.0-2.8,19.6,10.2 to 33.2,0.0,100.0
+families_collapsed,3,40,7.5,2.6-19.9,0,134,0.0,0.0-2.8,7.5,1.8 to 19.9,0.0114,100.0

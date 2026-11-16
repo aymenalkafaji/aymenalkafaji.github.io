@@ -1,5 +1,4 @@
 offer_group,offer_type,corroborated_malicious,suspicious_offer
-"Branded gate, content hidden",branded_gate,5,0
 Crypto presale or wallet connect,token_presale,0,2
 Crypto presale or wallet connect,wallet_connect,2,0
 "Fake download, early access or port",early_access,0,2

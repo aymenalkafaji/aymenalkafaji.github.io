@@ -4,12 +4,14 @@ Compare infrastructure signals between deceptive-offer sites and fan/news sites.
 Inputs (work dir):
   gta6.duckdb      - scans / scans_dedup / domains tables (collect.py, prepare.py)
   labels_raw.csv   - one row per registrable domain: label, offer_type,
-                     confidence, evidence, second_pass_label
+                     confidence, evidence, second_pass_label, template_family,
+                     revised_from (first-pass label, if changed on later review)
 
 Outputs (out dir, all domains defanged, no URL paths or query strings):
   domains_labeled.csv, scans.csv, query_log.csv, group_metrics.csv,
   sensitivity.csv, offer_types.csv, label_counts.csv, agreement.csv,
-  shared_infra_clusters.csv, title_clusters.csv
+  shared_infra_clusters.csv, title_clusters.csv, dedup_template_reuse.csv,
+  sample_flow.csv, first_seen_daily.csv
 
 Usage: python analysis.py <work_dir> <out_dir>
 """
@@ -49,6 +51,17 @@ DECEPTIVE = {"suspicious_offer", "corroborated_malicious"}
 # urlscan's domain-age field reports the platform's age, not the site's.
 PLATFORM_SUFFIXES = ("pages.dev", "netlify.app", "vercel.app", "github.io", "edgeone.dev",
                      "onrender.com", "website.yandexcloud.net", "blogspot.com", "duckdns.org")
+
+# Mirrored deployments of one website: the same site published on a second
+# platform, a deploy preview, an identical IP+title copy, or the same page
+# translated. Each set counts once in the deployment-deduplicated analysis.
+MIRRORS = {
+    "gta6tracker.pages.dev": "gta6tracker.net",
+    "embed-6aebe196e1a580074c60dcd2--wondrous-cendol-71a529.netlify.app": "wondrous-cendol-71a529.netlify.app",
+    "onlinegtavi.com": "gta6hub.live",
+    "gta6-nl.website.yandexcloud.net": "gta6-de.website.yandexcloud.net",
+    "gta6-sv.website.yandexcloud.net": "gta6-de.website.yandexcloud.net",
+}
 
 OFFER_GROUPS = {
     "fake_download": "Fake download, early access or port",
@@ -109,8 +122,9 @@ def main(work, out):
     con = duckdb.connect(str(work / "gta6.duckdb"), read_only=True)
     dom = con.execute("SELECT * FROM domains").df()
     scans = con.execute("SELECT * FROM scans_dedup").df()
+    scans_raw = con.execute("SELECT uuid FROM scans").df()
     qlog = con.execute("SELECT * FROM query_log").df()
-    lab = pd.read_csv(work / "labels_raw.csv")
+    lab = pd.read_csv(work / "labels_raw.csv", dtype={"revised_from": str})
     df = dom.merge(lab, on="reg_domain", how="left")
     assert df.label.notna().all(), "every domain needs a label"
 
@@ -209,6 +223,48 @@ def main(work, out):
                              fan_pct=None, diff_ci=f"top ASN {top.index[0]} {100*top.iloc[0]/top.sum():.0f}%"))
 
     pd.DataFrame(rows).to_csv(out / "group_metrics.csv", index=False)
+
+    # ---- template reuse with related deployments collapsed ---------------
+    # Domain-level tests treat every domain as independent. Two stricter
+    # versions: (1) mirrors of one website count once; (2) every template
+    # family counts once, whatever its size.
+    a, b = group("primary")
+    two = pd.concat([a.assign(g="deceptive"), b.assign(g="fan_news")])
+    two["mirror_unit"] = two.reg_domain.map(lambda d: MIRRORS.get(d, d))
+    fam_units = two.groupby("template_family").mirror_unit.nunique()
+    two["family_unit"] = two.template_family.fillna(two.reg_domain)
+    dd = []
+    for level, unit in [("domain", "reg_domain"), ("mirrors_collapsed", "mirror_unit"),
+                        ("families_collapsed", "family_unit")]:
+        u = two.drop_duplicates(unit).copy()
+        if level == "domain":
+            u["reuse"] = u.template_reuse
+        else:
+            u["reuse"] = u.template_family.map(fam_units).fillna(0) >= 2
+        ga, gb = u[u.g == "deceptive"], u[u.g == "fan_news"]
+        k1, n1, k2, n2 = int(ga.reuse.sum()), len(ga), int(gb.reuse.sum()), len(gb)
+        p1, l1, u1 = wilson(k1, n1); p2, l2, u2 = wilson(k2, n2); d, dl, du = newcombe_diff(k1, n1, k2, n2)
+        dd.append(dict(level=level, deceptive_k=k1, deceptive_n=n1, deceptive_pct=round(100 * p1, 1),
+                       deceptive_ci=f"{100*l1:.1f}-{100*u1:.1f}", fan_k=k2, fan_n=n2, fan_pct=round(100 * p2, 1),
+                       fan_ci=f"{100*l2:.1f}-{100*u2:.1f}", diff_pp=round(100 * d, 1),
+                       diff_ci=f"{100*dl:.1f} to {100*du:.1f}",
+                       fisher_p=round(fisher_exact([[k1, n1 - k1], [k2, n2 - k2]])[1], 4),
+                       precision_pct=round(100 * k1 / (k1 + k2), 1) if k1 + k2 else None))
+    pd.DataFrame(dd).to_csv(out / "dedup_template_reuse.csv", index=False)
+
+    # ---- sample flow -----------------------------------------------------
+    flow = [("rows returned by 11 queries", len(scans_raw)), ("unique scans", len(scans)),
+            ("registrable domains", len(df)), ("out of scope (parked, error, unrelated)", int((df.label == "out_of_scope").sum())),
+            ("relevant domains", len(rel))]
+    flow += [(f"relevant: {k}", int(v)) for k, v in rel.label.value_counts().items()]
+    flow += [("comparison: deceptive (suspicious + tag-corroborated)", len(a)), ("comparison: fan/news", len(b))]
+    pd.DataFrame(flow, columns=["step", "n"]).to_csv(out / "sample_flow.csv", index=False)
+
+    # ---- first observed scan per domain, by group ------------------------
+    fs = rel.assign(group=rel.label.map(lambda x: "deceptive" if x in DECEPTIVE else x),
+                    day=pd.to_datetime(rel.first_seen, utc=True).dt.strftime("%Y-%m-%d"))
+    fs[fs.group.isin(["deceptive", "fan_news", "uncertain", "token"])].groupby(["day", "group"]).size() \
+        .unstack(fill_value=0).to_csv(out / "first_seen_daily.csv")
     pd.DataFrame(sens).to_csv(out / "sensitivity.csv", index=False)
 
     # ---- descriptive tables ---------------------------------------------
@@ -236,7 +292,10 @@ def main(work, out):
     tc.sort_values("n", ascending=False).to_csv(out / "title_clusters.csv", index=False)
 
     # ---- intra-rater agreement (second pass) ------------------------------
-    rr = df[df.second_pass_label.notna() & (df.second_pass_label != "")]
+    # compares the blind second pass with the FIRST-pass label, so later
+    # revisions do not inflate agreement
+    rr = df[df.second_pass_label.notna() & (df.second_pass_label != "")].copy()
+    rr["label"] = rr.revised_from.where(rr.revised_from.notna() & (rr.revised_from != ""), rr.label)
     agree = (rr.label == rr.second_pass_label)
     cats = sorted(set(rr.label) | set(rr.second_pass_label))
     po = agree.mean()
@@ -257,7 +316,7 @@ def main(work, out):
     for c in ["reg_domain", "page_domain"]:
         pub[c] = pub[c].map(lambda x: x if x == "[redacted]" else defang(x))
     pub[["reg_domain", "page_domain", "label", "offer_type", "confidence", "evidence", "second_pass_label",
-         "first_seen", "n_scans", "page_title", "page_ip", "page_asn", "page_asnname", "page_country",
+         "revised_from", "first_seen", "n_scans", "page_title", "page_ip", "page_asn", "page_asnname", "page_country",
          "page_status", "domain_age_days", "platform_subdomain", "offer_group", "all_tags", "strong_tag", "cdn_paas", "shared_ip",
          "shared_ip_noncdn", "shared_title", "template_family", "template_reuse", "first_uuid"]].to_csv(out / "domains_labeled.csv", index=False)
 
@@ -275,6 +334,8 @@ def main(work, out):
     print(pd.DataFrame(rows)[["metric", "deceptive_k", "deceptive_n", "deceptive_pct", "deceptive_ci",
                               "fan_k", "fan_n", "fan_pct", "fan_ci", "diff_pp", "diff_ci", "fisher_p"]].to_string())
     print(pd.DataFrame(sens)[["definition", "metric", "deceptive_pct", "deceptive_n", "fan_pct", "fan_n", "diff_pp", "diff_ci", "fisher_p"]].to_string())
+    print(pd.DataFrame(dd).to_string())
+    print(pd.DataFrame(flow).to_string())
     print(f"agreement {po:.3f}, kappa {kappa:.3f}, n={len(rr)}")
     print(cl.sort_values("n", ascending=False).head(15).to_string())
     print(tc.sort_values("n", ascending=False).to_string())

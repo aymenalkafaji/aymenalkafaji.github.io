@@ -1,7 +1,7 @@
 group,page_asn,domains,asn_name
 deceptive,AS13238,2,"YANDEX YANDEX LLC, RU"
 deceptive,AS13335,20,"CLOUDFLARENET - Cloudflare, Inc., US"
-deceptive,AS139341,7,"ACE-AS-AP - ACE, SG"
+deceptive,AS139341,2,"ACE-AS-AP - ACE, SG"
 deceptive,AS14618,2,"AMAZON-AES - Amazon.com, Inc., US"
 deceptive,AS16509,6,"AMAZON-02 - Amazon.com, Inc., US"
 deceptive,AS200514,1,"KnownSRV KnownSRV Ltd., GB"

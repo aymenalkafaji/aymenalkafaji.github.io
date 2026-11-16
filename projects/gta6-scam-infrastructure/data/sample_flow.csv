@@ -1,0 +1,15 @@
+step,n
+rows returned by 11 queries,719
+unique scans,444
+registrable domains,335
+"out of scope (parked, error, unrelated)",52
+relevant domains,283
+relevant: fan_news,136
+relevant: token,43
+relevant: suspicious_offer,42
+relevant: uncertain,33
+relevant: commerce,18
+relevant: corroborated_malicious,7
+relevant: official,4
+comparison: deceptive (suspicious + tag-corroborated),49
+comparison: fan/news,136

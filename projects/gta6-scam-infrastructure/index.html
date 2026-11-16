@@ -4,25 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mapping GTA VI-Themed Web Infrastructure | Aymen Alkafaji</title>
-  <meta name="description" content="A labelled, reproducible sample of 335 GTA VI-themed domains from public urlscan.io scans, comparing deceptive-offer sites with fan and news sites on shared hosting and template reuse." />
+  <meta name="description" content="335 GTA VI-themed domains from public urlscan.io scans, labelled from archived screenshots. Deceptive-offer sites shared IPs no more than fan sites did, but reused the same page design far more often." />
 
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Aymen Alkafaji" />
   <meta property="og:title" content="Mapping GTA VI-Themed Web Infrastructure: Deceptive Offers, Fan Sites, and Shared Hosting" />
-  <meta property="og:description" content="A labelled, reproducible sample of 335 GTA VI-themed domains from public urlscan.io scans, comparing deceptive-offer sites with fan and news sites on shared hosting and template reuse." />
+  <meta property="og:description" content="335 GTA VI-themed domains from public urlscan.io scans, labelled from archived screenshots. Deceptive-offer sites shared IPs no more than fan sites did, but reused the same page design far more often." />
   <meta property="og:url" content="https://aymen.pro/projects/gta6-scam-infrastructure/" />
   <meta property="og:image" content="https://aymen.pro/projects/gta6-scam-infrastructure/assets/social-card.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Mapping GTA VI-Themed Web Infrastructure: Deceptive Offers, Fan Sites, and Shared Hosting" />
-  <meta name="twitter:description" content="A labelled, reproducible sample of 335 GTA VI-themed domains from public urlscan.io scans, comparing deceptive-offer sites with fan and news sites on shared hosting and template reuse." />
+  <meta name="twitter:description" content="335 GTA VI-themed domains from public urlscan.io scans, labelled from archived screenshots. Deceptive-offer sites shared IPs no more than fan sites did, but reused the same page design far more often." />
   <meta name="twitter:image" content="https://aymen.pro/projects/gta6-scam-infrastructure/assets/social-card.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../design.css" />
+  <style>
+    .article-body pre { background: var(--paper); border: 1px solid var(--hairline); border-radius: 4px;
+      padding: 1rem 1.2rem; overflow-x: auto; font-size: 0.86rem; line-height: 1.55; margin: 1.2rem 0; }
+    .article-body pre code { background: none; padding: 0; }
+  </style>
 </head>
 <body>
   <!-- Navbar -->
@@ -42,103 +47,105 @@
       <div class="article-header">
         <div class="article-meta">
           <span>Threat intelligence</span>
-          <span>Brand impersonation &times; infrastructure</span>
-          <span>Updated Nov 16, 2026</span>
+          <span>Window: Oct 18 - Nov 15, 2026</span>
+          <span>335 domains, 444 scans</span>
+          <span>Python, DuckDB, SciPy</span>
+          <span><a href="#data-code">Data &amp; code</a></span>
+          <span>Revised Nov 16, 2026</span>
         </div>
         <h1>Mapping GTA VI-themed web infrastructure: deceptive offers, fan sites, and shared hosting</h1>
         <p class="subhead">
-          A labelled sample of 335 GTA VI-themed domains drawn from public
-          urlscan.io scans between October 18 and November 15, 2026. Each
-          domain was reviewed from its archived screenshot and sorted into
-          deceptive offers, fan and news sites, meme tokens, and other
-          groups. The two main groups were then compared on shared IPs,
-          hosting networks, domain age, and reuse of the same page template.
-          This is a descriptive measurement of a submission-biased sample; see
-          <a href="#limitations">Limitations</a> before generalising from it.
+          Scam sites around a big game launch are easy to find. Linking them
+          to each other is harder. This project took every GTA VI-themed page
+          that urlscan.io users scanned in the month before launch, labelled
+          each one from its archived screenshot, and tested which
+          infrastructure clues separate deceptive sites from fan sites.
         </p>
       </div>
 
       <div class="article-body">
 
         <div class="callout">
-          <p>
-            <strong>Key finding:</strong> Of 283 relevant GTA VI-themed domains,
-            <strong>54 (19%, 95% CI 15-24%)</strong> showed a
-            documented deceptive offer, such as a fake download, a fake
-            pre-order store or a "free key" giveaway. These deceptive sites were
-            <strong>not</strong> more likely than fan sites to share an IP
-            address (50% vs 43%; difference +7 points, CI &minus;8 to +23).
-            Nearly all shared IPs in the sample are Cloudflare, Vercel,
-            Netlify or EdgeOne edge addresses used by thousands of unrelated
-            customers. The signal that did separate the groups was
-            <strong>reuse of a visually identical page template</strong> across
-            several domains: <strong>33% of deceptive-offer domains</strong>
-            versus <strong>3% of fan and news domains</strong> (difference
-            +30 points, 95% CI +19 to +44; Fisher's exact p&nbsp;&lt;&nbsp;0.001).
-            The gap holds when uncertain labels are counted as deceptive and
-            when only high-confidence labels are used.
-          </p>
+          <p><strong>Summary</strong></p>
+          <ul>
+            <li><strong>What was investigated:</strong> 283 relevant GTA VI-themed domains from public urlscan.io scans, each labelled from its archived screenshot, comparing 49 deceptive-offer sites with 136 fan and news sites.</li>
+            <li><strong>What was found:</strong> 17% of relevant domains (95% CI 13-22%) made a deceptive offer, most often a fake download or PC/mobile "port". Shared IP addresses did not separate the groups (45% vs 43%), because almost all of them belong to big hosting platforms. Reused page designs did: 29% of deceptive-offer domains shared a visually identical template with another domain, against 3% of fan sites.</li>
+            <li><strong>Why it matters:</strong> for this kind of lure, IP overlap mostly reflects shared hosting. Repeated page designs were the more useful lead for finding related sites, provided they are treated as a reason to look closer, not as proof.</li>
+          </ul>
         </div>
+
+        <figure class="chart-figure">
+          <img src="assets/chart_case_studies.png" alt="Layout diagrams of two reused templates. A: the same cloned Brazilian retailer product page, offering a GTA VI PS5 pre-order with a price and buy button, on three domains. B: the same unofficial Telegram giveaway page promising subscribers a free copy at launch, in German, Dutch and Swedish on three Yandex Cloud sites." loading="lazy" />
+          <figcaption>What "template reuse" looks like. Redrawn from the archived screenshots (scan records: A
+            <a href="https://urlscan.io/result/01a1da69-416c-7139-918a-a6d96c8050b9/" target="_blank" rel="noopener">1</a>,
+            <a href="https://urlscan.io/result/01a1c41c-cb76-710b-84a5-474c8ed1fb30/" target="_blank" rel="noopener">2</a>,
+            <a href="https://urlscan.io/result/01a1da85-f478-756f-b75f-c1efd809205e/" target="_blank" rel="noopener">3</a>;
+            B <a href="https://urlscan.io/result/01a18503-6a3d-7618-afcc-fd3569080c28/" target="_blank" rel="noopener">1</a>,
+            <a href="https://urlscan.io/result/01a18604-1863-7621-b620-ae258eb0da82/" target="_blank" rel="noopener">2</a>,
+            <a href="https://urlscan.io/result/01a1b62b-5458-72dc-941c-a1a96d797164/" target="_blank" rel="noopener">3</a>).</figcaption>
+        </figure>
 
         <h2>Background</h2>
         <p>
           Grand Theft Auto VI is due on November 19, 2026, for PlayStation 5
-          and Xbox Series X|S. No PC or mobile version has been announced,
-          and there is no public beta or early-access build. Security
-          vendors and the gaming press have spent much of 2026 warning about
-          sites that exploit that gap. Malwarebytes reported paid "VIP early
-          access" pages, Bitdefender flagged fake "beta" downloads promoted
-          through social ads, and later reporting described further waves of
-          early-access and pre-order lures ahead of launch
+          and Xbox Series X|S. There is no PC or mobile version and no public
+          beta. That gap is what scam sites sell into. Malwarebytes reported
+          paid "VIP early access" pages, Bitdefender flagged fake "beta"
+          downloads promoted through social ads, and later reporting described
+          more early-access and pre-order lures ahead of launch
           (<a href="#sources">sources</a>).
         </p>
         <p>
-          Those warnings generally describe individual examples or rely on
-          vendor telemetry that outsiders cannot inspect. This project asks a
-          narrower question that can be checked with public data:
+          Those warnings describe individual examples or rely on vendor
+          telemetry that outsiders can't inspect. The question here is one
+          that public data can answer:
         </p>
         <p>
           <strong>Among publicly scanned GTA VI-themed websites, what share
-          show a documented deceptive offer, and do those sites reuse
-          infrastructure or page templates more often than clearly identified
-          fan and news sites?</strong>
+          show a deceptive offer, and do those sites reuse infrastructure or
+          page templates more often than fan and news sites?</strong>
         </p>
 
         <h2>Data &amp; methodology</h2>
         <p><strong>Source.</strong> The
         <a href="https://urlscan.io/docs/api/" target="_blank" rel="noopener">urlscan.io search API</a>,
-        queried on November 16, 2026. The study window is the
-        29 completed UTC days from <strong>October 18 to November 15,
-        2026</strong>. Eleven narrow query variants were run, each restricted
-        to that window:</p>
+        queried on November 16, 2026, for the 29 completed UTC days from
+        <strong>October 18 to November 15, 2026</strong>. Eleven narrow
+        queries were run, each limited to that window:</p>
         <ul>
           <li>domain prefixes: <code>page.domain:gta6*</code>, <code>gtavi*</code>, <code>gta-6*</code>, <code>gta-vi*</code>, <code>gta6-*</code>, <code>gtavi6*</code>, <code>grandtheftauto6*</code>, and <code>task.domain:gta6*</code></li>
           <li>page titles: <code>"GTA VI"</code>, <code>"GTA 6"</code>, <code>"Grand Theft Auto VI"</code>, <code>"Grand Theft Auto 6"</code></li>
         </ul>
-        <p>Results were paginated with <code>search_after</code> until each
-        query was exhausted. Every query is logged with its retrieval time
+        <p>Each query was paged to the end and logged
         (<a href="data/query_log.csv">query_log.csv</a>).</p>
 
-        <p><strong>Deduplication.</strong> The 719 returned rows collapse to
-        <strong>444 unique scans</strong> (the same scan often matches several
-        queries). These map to <strong>335 registrable domains</strong> using the
-        Public Suffix List, including its private section. As a result, each
-        <code>*.pages.dev</code>, <code>*.netlify.app</code> or
-        <code>*.vercel.app</code> deployment counts as its own site. Tencent's
-        EdgeOne Pages (<code>edgeone.dev</code>) and Yandex Cloud website
-        hosting were treated the same way, so 15 separate EdgeOne deployments
-        count as 15 sites. The earliest scan per domain
-        represents that domain; the full scan-level table is published too.</p>
+        <p><strong>From scans to domains.</strong> The same scan often matches
+        several queries, so the 719 results collapse to 444 unique scans.
+        These map to 335 registrable domains using the Public Suffix List
+        (the shared list of suffixes such as <code>.co.uk</code> or
+        <code>pages.dev</code> under which anyone can register a site). Each
+        <code>*.pages.dev</code>, <code>*.netlify.app</code>,
+        <code>*.vercel.app</code>, Tencent EdgeOne or Yandex Cloud deployment
+        counts as its own site. The earliest scan represents each domain.</p>
 
-        <p><strong>Evidence used.</strong> 315 of the 335 domains had an
-        archived screenshot. No live suspicious page was visited, and
-        nothing was downloaded or executed. All labelling used urlscan's
-        archived screenshots, page titles and submitter tags.</p>
+        <figure class="chart-figure">
+          <img src="assets/chart_sample_flow.png" alt="Flow diagram: 719 search results, 444 unique scans, 335 registrable domains, 283 relevant to GTA VI after removing 52 parked, error or unrelated pages. The 283 split into 49 deceptive-offer domains (42 offer only, 7 offer plus threat tag), 136 fan or news, and 98 not in the main comparison (43 meme token, 33 uncertain, 18 commerce, 4 official)." loading="lazy" />
+          <figcaption>Which domains feed which analysis. Only the orange and blue boxes enter the main comparison.</figcaption>
+        </figure>
 
-        <p><strong>Labelling rubric.</strong> Each domain received one label
-        from its archived screenshot and title. A GTA-related name, a shared
-        host, or a threat tag on its own was never enough to assign a
-        deceptive label.</p>
+        <p><strong>Evidence used.</strong> Labels come from urlscan's archived
+        screenshot (available for 315 of 335 domains), the page title and
+        any tags the scan's submitter added. No live suspicious page was
+        visited and nothing was downloaded.</p>
+
+        <p><strong>Labelling rubric.</strong> Each domain got one label. A
+        screenshot can show that a page <em>makes</em> an offer that can't be
+        genuine. It can't show what happens after someone clicks. So the
+        rubric keeps three things apart: what the page offers, what third
+        parties tagged it as, and what was actually confirmed (nothing
+        here: no payment flow, download or credential form was tested). A
+        GTA-related name, a shared host or a threat tag on its own never
+        earned a deceptive label.</p>
         <div class="table-scroll">
           <table class="data-table">
             <thead>
@@ -147,69 +154,79 @@
             <tbody>
               <tr><td>Official</td><td>Rockstar, Take-Two, or platform-holder page</td><td>4</td></tr>
               <tr><td>Fan / news</td><td>Press, wiki, map, countdown, community or tool with no deceptive offer</td><td>136</td></tr>
-              <tr><td>Suspicious offer</td><td>Screenshot shows an offer that cannot be genuine (a PC or mobile build, early access, free keys or copies, an "official" pre-order on a lookalike domain, a retailer clone, or in-game money generators)</td><td>42</td></tr>
-              <tr><td>Corroborated malicious</td><td>A deceptive offer or branded gate <em>and</em> a strong third-party threat tag on the scan (<code>malicious</code>, <code>scam</code>, <code>drainer</code>, <code>threat</code>, or <code>phishing</code> not paired with <code>possiblethreat</code>)</td><td>12</td></tr>
+              <tr><td>Deceptive offer</td><td>Screenshot shows an offer that can't be genuine: a PC or mobile build, early access, free keys or copies, an "official" pre-order on a lookalike domain, a retailer clone, or an in-game money generator</td><td>42</td></tr>
+              <tr><td>Deceptive offer + threat tag</td><td>As above, <em>and</em> a strong third-party threat tag on the scan (<code>malicious</code>, <code>scam</code>, <code>drainer</code>, <code>threat</code>, or <code>phishing</code> not paired with the weaker <code>possiblethreat</code>). The tag adds a second opinion; it does not confirm behaviour.</td><td>7</td></tr>
               <tr><td>Meme token</td><td>GTA VI-themed crypto token with no claim of game access</td><td>43</td></tr>
               <tr><td>Commerce</td><td>Established retailer, ticketing, merchandise, or clearly disclosed paid product</td><td>18</td></tr>
-              <tr><td>Uncertain</td><td>Ambiguous purpose, tag conflicts with content, or title-only evidence</td><td>28</td></tr>
+              <tr><td>Uncertain</td><td>Ambiguous purpose, tag with no visible offer, or title-only evidence</td><td>33</td></tr>
               <tr><td>Out of scope</td><td>Parked, error, placeholder, unrelated, or no archived content</td><td>52</td></tr>
             </tbody>
           </table>
         </div>
-        <p>The analysis compares the <strong>54 deceptive-offer domains</strong>
-        (suspicious&nbsp;+&nbsp;corroborated) with the <strong>136 fan/news
-        domains</strong>. Fan and news sites are a descriptive baseline, not
-        a matched control.</p>
+        <p>The main comparison is the <strong>49 deceptive-offer
+        domains</strong> (both deceptive rows) against the <strong>136
+        fan/news domains</strong>. Fan sites are a reference group, not a
+        matched control.</p>
 
-        <p><strong>Re-review.</strong> A seeded random 20% of the 283 relevant
-        domains (57 domains) was re-labelled in shuffled order from the
-        screenshot and title, with the first-pass labels hidden. The two
-        passes agreed on <strong>55 of 57 (96.5%; Cohen's &kappa; =
-        0.95)</strong>. In both disagreements the second pass was more
-        cautious: a giveaway site and an EdgeOne image-only page moved to
-        "uncertain". Both passes were made by the same reviewer, so this
-        measures consistency rather than independent agreement.</p>
+        <p><strong>Within-reviewer repeatability.</strong> A seeded random
+        20% of relevant domains (57) was labelled a second time, in shuffled
+        order with the first labels hidden. The passes matched on 55 of 57
+        (96.5%; Cohen's &kappa; = 0.95, an agreement score corrected for
+        chance). Both passes were done by the same reviewer, so this shows
+        the rubric was applied consistently. It is not independent
+        validation; a second labeller on a stratified sample would be the
+        next step.</p>
 
         <p><strong>Signals compared.</strong></p>
         <ul>
-          <li><strong>Shared IP:</strong> the page's IP is shared with at least one other relevant domain.</li>
-          <li><strong>Shared IP off CDN/PaaS:</strong> the same, excluding major CDN and site-hosting networks (Cloudflare, AWS/Vercel/Netlify edges, Fastly/GitHub Pages, Google, Akamai, Microsoft, Tencent EdgeOne, Yandex Cloud). On those networks an IP is an anycast edge shared by thousands of unrelated customers.</li>
-          <li><strong>Visual template reuse:</strong> the domain belongs to a family of two or more sites with a visually identical page, identified during screenshot review. Exact-title matching is reported separately; it misses translated clones.</li>
-          <li><strong>New domain:</strong> registered fewer than 30 days before the first scan, computed only for independently registered domains. urlscan reports the <em>platform's</em> age for subdomain deployments, for example 1,436 days for every <code>*.edgeone.dev</code> site.</li>
+          <li><strong>Shared IP:</strong> the page's IP address also served at least one other relevant domain.</li>
+          <li><strong>Shared IP off CDN/PaaS:</strong> the same, excluding big content-delivery and site-hosting platforms (Cloudflare, AWS edges used by Vercel and Netlify, Fastly/GitHub Pages, Google, Akamai, Microsoft, Tencent EdgeOne, Yandex Cloud). On those platforms one IP fronts thousands of unrelated customers.</li>
+          <li><strong>Hosting network (ASN):</strong> the autonomous system, roughly "which company's network", that announced the page's IP.</li>
+          <li><strong>Template reuse:</strong> the domain belongs to a family of two or more sites with a visually identical page, judged from screenshots. Exact-title matches are reported separately because they miss translated copies.</li>
+          <li><strong>New domain:</strong> registered under 30 days before the first scan. Only independently registered domains count, since urlscan reports the <em>platform's</em> age for subdomain sites (1,436 days for every <code>*.edgeone.dev</code> page).</li>
         </ul>
-        <p>Proportions use 95% Wilson intervals. Differences use Newcombe's
-        hybrid score interval and two-sided Fisher's exact tests.</p>
+        <p>Percentages carry 95% Wilson intervals (a confidence interval that
+        behaves well for small counts). Differences use Newcombe's interval
+        for the gap between two proportions, and p-values come from Fisher's
+        exact test, which asks how likely a split this lopsided would be if
+        the two groups really had the same rate.</p>
 
-        <h2>Finding 1: about one in five relevant sites made a deceptive offer</h2>
+        <h2>Finding 1: about one in six relevant sites made a deceptive offer</h2>
         <figure class="chart-figure">
-          <img src="assets/chart_offer_types.png" alt="Horizontal bar chart of the 54 deceptive-offer domains by offer type: 20 fake download, early access or port; 13 giveaway, free key or free copy; 9 fake pre-order or key store; 5 branded gate with content hidden; 4 crypto presale or wallet connect; 3 gambling or money generator." loading="lazy" />
+          <img src="assets/chart_offer_types.png" alt="Horizontal bar chart of the 49 deceptive-offer domains by offer type: 20 fake download, early access or port (4 also tagged by third parties); 13 giveaway, free key or free copy (1 tagged); 9 fake pre-order or key store; 4 crypto presale or wallet connect (2 tagged); 3 gambling or money generator." loading="lazy" />
           <figcaption>Deceptive-offer domains by primary offer, from archived screenshots.</figcaption>
         </figure>
         <p>
-          Among the 283 relevant domains, 54 (19.1%, CI 14.9-24.1%)
-          made a deceptive offer. Including all 28 uncertain domains raises
-          this to an upper bound of 82 (29.0%, CI 24.0-34.5%). Fan and
-          news sites were the largest group (136, 48%), followed by GTA
-          VI-themed meme tokens (43, 15%). Most token sites made no claim
-          about game access, so they are not counted as deceptive offers.
+          Of 283 relevant domains, 49 (17.3%, CI 13.4-22.2%) made a deceptive
+          offer. Counting all 33 uncertain domains as deceptive gives an upper
+          bound of 82 (29.0%, CI 24.0-34.5%). Fan and news sites were the
+          largest group (136, 48%), followed by GTA VI meme tokens (43, 15%),
+          which mostly made no claim about game access.
         </p>
         <p>
-          The most common lure was a <strong>fake download, early-access build,
-          or PC/mobile "port"</strong> (20 domains), often presented as an
-          APK, a Windows installer, or a "Cyberleek" leaked build. These offers
-          only work because the game has no PC or mobile release. The next
-          most common were <strong>giveaways and "free code" pages</strong>
-          (13), which typically ask for an email address, a console choice, a
-          survey or Telegram membership before a "reveal". Then came
-          <strong>fake pre-order stores</strong> (9). These include three
-          pixel-level clones of a major Brazilian retailer's product page and
-          stores on Rockstar-lookalike domains.
+          <strong>Reading the interval.</strong> The 13-22% range covers
+          random variation for a sample of this size. It doesn't cover the
+          bigger source of error: urlscan only holds pages someone chose to
+          scan, and security feeds submit suspicious pages far more often
+          than fan pages. The true share across the whole GTA VI web could
+          sit well outside this range.
+        </p>
+        <p>
+          The most common lure was a <strong>fake download, early-access
+          build, or PC/mobile "port"</strong> (20 domains): APK pages, Windows
+          installers, and "Cyberleek" pages selling a supposed leaked build.
+          These only work because the game has no PC or mobile release. Next
+          came <strong>giveaways and "free code" pages</strong> (13), which
+          ask for an email, a console choice, a survey or a Telegram join
+          before a "reveal", then <strong>fake pre-order stores</strong> (9),
+          including three identical copies of a Brazilian retailer's product
+          page.
         </p>
 
-        <h2>Finding 2: shared IPs don't distinguish the groups; shared templates do</h2>
+        <h2>Finding 2: shared IPs don't separate the groups; shared templates do</h2>
         <figure class="chart-figure">
-          <img src="assets/chart_group_metrics.png" alt="Dot plot with confidence intervals comparing deceptive-offer and fan/news domains. Template reuse 33% vs 3%; shared IP any network 50% vs 43%; shared IP off CDN 4% vs 0%; major CDN/PaaS hosting 72% vs 85%; free-platform subdomain 26% vs 18%; registered under 30 days 28% vs 45%." loading="lazy" />
-          <figcaption>Share of domains with each signal, 95% Wilson intervals. Deceptive n=54, fan/news n=136.</figcaption>
+          <img src="assets/chart_group_metrics.png" alt="Dot plot with confidence intervals comparing deceptive-offer and fan/news domains. Template reuse 29% vs 3%; shared IP any network 45% vs 43%; shared IP off CDN 4% vs 0%; major CDN/PaaS hosting 69% vs 85%; free-platform subdomain 18% vs 18%; registered under 30 days 28% vs 45%." loading="lazy" />
+          <figcaption>Share of domains with each signal, 95% Wilson intervals. Deceptive n=49, fan/news n=136.</figcaption>
         </figure>
         <div class="table-scroll">
           <table class="data-table">
@@ -217,105 +234,201 @@
               <tr><th>Signal</th><th>Deceptive</th><th>Fan / news</th><th>Difference (pp)</th><th>Fisher p</th></tr>
             </thead>
             <tbody>
-              <tr><td>Visual template reuse</td><td>18/54 (33.3%)</td><td>4/136 (2.9%)</td><td>+30.4 [18.5, 43.8]</td><td>&lt;0.001</td></tr>
-              <tr><td>Shared IP, any network</td><td>27/54 (50.0%)</td><td>58/136 (42.6%)</td><td>+7.4 [&minus;8.0, 22.5]</td><td>0.42</td></tr>
-              <tr><td>Shared IP, off CDN/PaaS</td><td>2/54 (3.7%)</td><td>0/136 (0.0%)</td><td>+3.7 [&minus;0.1, 12.5]</td><td>0.08</td></tr>
-              <tr><td>Exact page title shared</td><td>5/54 (9.3%)</td><td>4/136 (2.9%)</td><td>+6.3 [&minus;0.5, 17.1]</td><td>0.12</td></tr>
-              <tr><td>Major CDN/PaaS network</td><td>39/54 (72.2%)</td><td>115/136 (84.6%)</td><td>&minus;12.3 [&minus;26.4, 0.0]</td><td>0.06</td></tr>
-              <tr><td>Free-platform subdomain</td><td>14/54 (25.9%)</td><td>24/136 (17.6%)</td><td>+8.3 [&minus;3.9, 22.4]</td><td>0.23</td></tr>
+              <tr><td>Visual template reuse</td><td>14/49 (28.6%)</td><td>4/136 (2.9%)</td><td>+25.6 [14.0, 39.6]</td><td>&lt;0.001</td></tr>
+              <tr><td>Shared IP, any network</td><td>22/49 (44.9%)</td><td>58/136 (42.6%)</td><td>+2.3 [&minus;13.3, 18.2]</td><td>0.87</td></tr>
+              <tr><td>Shared IP, off CDN/PaaS</td><td>2/49 (4.1%)</td><td>0/136 (0.0%)</td><td>+4.1 [0.0, 13.7]</td><td>0.07</td></tr>
+              <tr><td>Exact page title shared</td><td>5/49 (10.2%)</td><td>4/136 (2.9%)</td><td>+7.3 [0.0, 19.0]</td><td>0.06</td></tr>
+              <tr><td>Major CDN/PaaS network</td><td>34/49 (69.4%)</td><td>115/136 (84.6%)</td><td>&minus;15.2 [&minus;30.0, &minus;2.0]</td><td>0.03</td></tr>
+              <tr><td>Free-platform subdomain</td><td>9/49 (18.4%)</td><td>24/136 (17.6%)</td><td>+0.7 [&minus;10.4, 14.8]</td><td>1.00</td></tr>
               <tr><td>Registered &lt;30 days before scan</td><td>11/40 (27.5%)</td><td>50/112 (44.6%)</td><td>&minus;17.1 [&minus;31.8, 0.6]</td><td>0.06</td></tr>
             </tbody>
           </table>
         </div>
         <p>
-          Half the deceptive-offer domains shared an IP with another domain in
-          the sample, but so did 43% of fan sites, and the difference is
-          within noise. The reason is visible in the chart below. The
-          biggest shared IPs are Cloudflare and AWS edge addresses holding
-          fan sites, tokens and scams side by side. Outside CDN and
-          site-hosting networks, only <strong>one pair</strong> of domains
-          shared an IP, and both were deceptive: two fan-styled "GTA 6 Hub"
-          pages with the same layout and a "Download page" button.
+          <strong>Shared IPs.</strong> 45% of deceptive domains shared an IP
+          with another domain in the sample, and so did 43% of fan sites. In
+          practice, an analyst pivoting on IP would pull in about as many fan
+          sites as scams. The biggest shared IPs are Cloudflare and AWS edge
+          addresses carrying fans, tokens and scams side by side (left panel
+          below). Off those platforms, only one pair of domains shared an IP:
+          two fan-styled "GTA 6 Hub" pages with the same layout and a
+          "Download page" button.
         </p>
         <p>
-          Template reuse is the clear difference. Six template families
-          account for the 18 deceptive domains:
+          <strong>Hosting.</strong> Deceptive sites were somewhat less often
+          on a big CDN or site-hosting platform (69% vs 85%), meaning more of
+          them sat on ordinary hosting or servers. The difference is modest
+          and its interval nearly reaches zero.
+        </p>
+        <p>
+          <strong>Templates.</strong> 14 deceptive domains fall into five
+          template families:
         </p>
         <ul>
-          <li>three clones of a Brazilian retailer's GTA VI product page, on Netlify and lookalike domains;</li>
-          <li>three Yandex Cloud pages with the same Telegram "free copy" giveaway in German, Dutch and Swedish;</li>
-          <li>three "Cyberleek" terminal-style pages selling a supposed leaked build or token-gated demo;</li>
+          <li>three copies of a Brazilian retailer's GTA VI product page, on Netlify and lookalike domains (case study A above);</li>
+          <li>three Yandex Cloud pages with the same Telegram "free copy" giveaway in German, Dutch and Swedish (case study B);</li>
+          <li>three "Cyberleek" terminal-style pages selling a leaked build or a token-gated demo;</li>
           <li>three pink "GTA 6 APK v8.1.5 Beta" download pages;</li>
-          <li>four EdgeOne deployments showing only a GTA VI logo or cover-art splash (all tagged malicious by a third-party submitter);</li>
           <li>the "GTA 6 Hub" download pair.</li>
         </ul>
         <p>
-          The four fan sites in a template family are a map site mirrored on
-          Cloudflare Pages and a countdown with its own Netlify preview, so
-          each is one site deployed twice.
+          The four fan sites in template families are two sites each deployed
+          twice: a map mirrored on Cloudflare Pages and a countdown with its
+          own Netlify preview. In practice, a page design seen on more than
+          one domain was mostly a deceptive-offer design in this sample.
         </p>
         <figure class="chart-figure">
-          <img src="assets/chart_infra_network.png" alt="Two panels of hub diagrams. Left: shared IP addresses with three or more domains; the largest are Cloudflare edges with 21 and 18 domains mixing fan, token, deceptive and uncertain sites. Right: twelve visual template families; the first six contain only deceptive-offer domains, two contain only uncertain domains, two only fan sites and two only tokens." loading="lazy" />
+          <img src="assets/chart_infra_network.png" alt="Two panels of hub diagrams. Left: shared IP addresses with three or more domains; the largest are Cloudflare edges with 21 and 18 domains mixing fan, token, deceptive and uncertain sites. Right: twelve visual template families; five contain only deceptive-offer domains, three only uncertain domains, two only fan sites and two only tokens." loading="lazy" />
           <figcaption>Left: IPs shared by 3+ domains mix every category. Right: template families tend to be one category only.</figcaption>
         </figure>
 
-        <h2 id="sensitivity">Sensitivity to labelling choices</h2>
+        <h2 id="sensitivity">Does the template result survive stricter counting?</h2>
+        <p>
+          The domain-level test treats every domain as independent. Domains
+          in one template family are not independent: three copies of one
+          page are closer to one observation than three. Two stricter
+          versions handle that. The first counts mirrors of one website
+          (same site on a second platform, a deploy preview, an identical IP
+          and title copy, or the same page in another language) once. The
+          second counts every template family once, whatever its size.
+        </p>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr><th>Unit of analysis</th><th>Deceptive</th><th>Fan / news</th><th>Difference (pp)</th><th>Fisher p</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Domain (main analysis)</td><td>14/49 (28.6%)</td><td>4/136 (2.9%)</td><td>+25.6 [14.0, 39.6]</td><td>&lt;0.001</td></tr>
+              <tr><td>Mirrors collapsed</td><td>9/46 (19.6%)</td><td>0/134 (0.0%)</td><td>+19.6 [10.2, 33.2]</td><td>&lt;0.001</td></tr>
+              <tr><td>Each template family counted once</td><td>3/40 (7.5%)</td><td>0/134 (0.0%)</td><td>+7.5 [1.8, 19.9]</td><td>0.01</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Collapsing mirrors removes every fan-site match, because both fan
+          families were one site deployed twice. The deceptive families that
+          remain are copies on genuinely different domains. Counting each
+          family once is deliberately harsh and leaves only three reused
+          designs, but the gap stays above zero. Treat the p-values on this
+          page as exploratory: the domains were not randomly sampled, and the
+          stricter tests show the effect is smaller once related sites are
+          grouped.
+          Results: <a href="data/dedup_template_reuse.csv">dedup_template_reuse.csv</a>.
+        </p>
         <div class="table-scroll">
           <table class="data-table">
             <thead>
               <tr><th>Deceptive group definition</th><th>n</th><th>Template reuse</th><th>Fan/news</th><th>Difference (pp)</th><th>p</th></tr>
             </thead>
             <tbody>
-              <tr><td>Primary (suspicious + corroborated)</td><td>54</td><td>33.3%</td><td>2.9%</td><td>+30.4 [18.5, 43.8]</td><td>&lt;0.001</td></tr>
+              <tr><td>Main (both deceptive labels)</td><td>49</td><td>28.6%</td><td>2.9%</td><td>+25.6 [14.0, 39.6]</td><td>&lt;0.001</td></tr>
               <tr><td>Including all uncertain domains</td><td>82</td><td>30.5%</td><td>2.9%</td><td>+27.5 [17.6, 38.3]</td><td>&lt;0.001</td></tr>
               <tr><td>High-confidence labels only</td><td>33</td><td>21.2%</td><td>3.1%</td><td>+18.1 [6.6, 34.7]</td><td>0.002</td></tr>
             </tbody>
           </table>
         </div>
         <p>
-          The template-reuse gap survives every definition. It shrinks when
-          only high-confidence labels are kept, mainly because several
-          template-family members (the Yandex giveaways, the EdgeOne splash
-          gates, the "GTA 6 Hub" pair) were rated medium confidence. The
-          shared-IP comparison is not significant under any definition.
-          The comparison of new domains reverses direction: deceptive-offer
-          domains were, if anything, <em>less</em> often freshly registered
-          than fan sites (27.5% vs 44.6%). Many fan countdowns and maps went
-          up in the final weeks before launch, while a cluster of deceptive
-          domains was registered 55-71 days before first scan, in
-          early-to-mid September.
+          Changing who counts as deceptive moves the numbers but not the
+          direction. The shared-IP comparison is not significant under any
+          definition. Domain age runs the other way from the usual
+          assumption: deceptive domains were, if anything, <em>less</em> often
+          freshly registered than fan sites (27.5% vs 44.6%). Many fan
+          countdowns and maps went up in the last weeks before launch, while a
+          cluster of deceptive domains was registered 55-71 days before first
+          scan, in early-to-mid September.
           Full results: <a href="data/sensitivity.csv">sensitivity.csv</a>.
         </p>
 
-        <h2>Finding 3: third-party tags are useful but noisy</h2>
+        <h2>Finding 3: third-party tags are a lead, not a label</h2>
         <p>
-          22 relevant domains carried a strong third-party threat tag on at
-          least one scan: 12 deceptive-offer sites, 8 uncertain, 1 meme token
-          and 1 fan site. The overlap with deceptive offers is partly built in,
-          because a strong tag is part of the "corroborated" label.
-          The more useful observation is where tags and screenshots
-          <em>disagreed</em>:
+          22 relevant domains carried a strong third-party threat tag: 7
+          deceptive-offer sites, 13 uncertain, 1 meme token and 1 fan site.
+          Where tags and screenshots disagreed is the useful part:
         </p>
         <ul>
-          <li>All 15 EdgeOne deployments carried the same <code>phishing|malicious</code> tag pair from one submission stream. Seven showed a fake download or a content-hiding GTA VI splash. Eight showed an ordinary-looking countdown, gallery or unrelated browser game and stayed "uncertain". The tagging looks platform- or pattern-driven rather than content-reviewed.</li>
-          <li>The same EdgeOne tags explain why "strong tag" is far more common among uncertain domains than among fan sites; the comparison in the chart above therefore leaves tags out.</li>
-          <li>An automated feed tagged one fan editorial site <code>threat|phishing</code> and several fan guides <code>possiblethreat|phishing</code>, with nothing deceptive visible in their screenshots.</li>
-          <li>Most deceptive-offer sites (42 of 54) had <strong>no</strong> strong tag at all, including retailer clones and APK pages.</li>
+          <li>All 15 EdgeOne deployments carried the same <code>phishing|malicious</code> tag pair from one submission stream. Two showed a fake download. The other 13 showed a bare GTA VI logo or cover image, a countdown, a gallery or an unrelated browser game, and are labelled uncertain. The tagging looks pattern-driven rather than based on page content.</li>
+          <li>An automated feed tagged one fan editorial site <code>threat|phishing</code> and several fan guides <code>possiblethreat|phishing</code>, with nothing deceptive on screen.</li>
+          <li>42 of the 49 deceptive-offer sites had no strong tag at all, including the retailer copies and APK pages.</li>
         </ul>
+
+        <h2>When the sites were first seen</h2>
+        <figure class="chart-figure">
+          <img src="assets/chart_first_seen.png" alt="Two bar charts of first urlscan sighting per domain by day. Deceptive-offer domains appear sporadically, with a spike of 14 on November 5 from one submitter feed. Fan and news domains rise steadily toward launch, peaking at 17 on November 14." loading="lazy" />
+          <figcaption>First scan per domain. This shows when pages were submitted, not when they went live.</figcaption>
+        </figure>
         <p>
-          Tags work as a lead, but they are not a substitute for looking at
-          the page.
+          Fan and news sites were first scanned at a rising rate as launch
+          approached. Deceptive sites show no steady build-up. Instead there
+          is one spike: 14 on November 5, every one of them carrying the same
+          submitter tag (<code>hybridanalysis</code>). That spike reflects one
+          feed sweeping for GTA VI lures on one day, not 14 sites going live
+          at once. Scan timing in urlscan says as much about who is looking
+          as about what is deployed.
         </p>
 
-        <h2 id="limitations">Limitations &amp; caveats</h2>
+        <h2>Detection implications</h2>
+        <p>
+          If an analyst flagged every domain whose page design matched another
+          domain's, then within this two-group sample 14 of the 18 flagged
+          domains would be deceptive (77.8% precision), and 35 of 49
+          deceptive domains (71%) would be missed. The 77.8% figure only
+          holds for this sample. Real traffic has a different mix of fan,
+          scam and unrelated pages, so precision in production would differ,
+          probably downward.
+        </p>
+        <p>
+          Template similarity works best as a <strong>prioritisation</strong>
+          signal: once one lure is confirmed, finding its visual siblings is
+          cheap and the siblings are likely to be related lures. It is not a
+          stand-alone detector and does not prove common ownership.
+        </p>
+        <p><strong>Investigative pivots.</strong></p>
         <ul>
-          <li><strong>Submission-biased sample, not a census.</strong> urlscan only contains pages someone chose to scan. Security researchers and automated feeds over-submit suspicious pages, while many fan sites are never scanned. The 19% figure describes this sample, not the GTA VI web as a whole or the scams people actually encounter.</li>
-          <li><strong>Keyword coverage.</strong> The prefix and title queries catch obvious lures (domains starting with <code>gta6</code>, pages titled "GTA VI") and miss scams with generic names or titles.</li>
-          <li><strong>30-day window only.</strong> The study covers one month, so it says nothing about year-over-year or pre-announcement trends. Scan dates are when a page was observed, not when the domain was registered, and repeated scans of a page are not new attacks.</li>
-          <li><strong>Limited evidence per domain.</strong> Labels rest on one archived screenshot, the page title and submitter tags. Redirect chains, payment endpoints and download hosts, which would be the strongest common-operator evidence, were out of scope. Seven relevant domains had no screenshot and were labelled from title text alone (marked low confidence).</li>
-          <li><strong>Single reviewer.</strong> One reviewer assigned every label and judged template families by eye. The 20% blind re-review shows consistency (&kappa;&nbsp;=&nbsp;0.95), not independent agreement. The labels file is published so others can check or re-label.</li>
-          <li><strong>Shared hosting is not shared ownership.</strong> A shared IP, ASN or template is an infrastructure signal. Identical templates can come from a sold kit, an AI site builder or copy-paste, as easily as from one operator. This analysis does not attribute any site to a campaign or actor.</li>
-          <li><strong>No harm estimates.</strong> Nothing here measures victims, money lost, malware delivered, or causal impact.</li>
+          <li><em>Observed in this data:</em> identical page layouts across domains; identical page titles, including the full retailer product title; the same page translated into several languages; deployments on free platforms (Netlify, Yandex Cloud, EdgeOne) alongside lookalike registered domains; the "Cyberleek" brand name reused across three TLDs.</li>
+          <li><em>Proposed for future collection:</em> screenshot perceptual hashes to automate the template matching done by eye here; DOM and script-structure fingerprints; redirect chains, payment and download destinations; registration records and certificate transparency logs for the independently registered domains.</li>
+        </ul>
+
+        <h2>Investigation notes</h2>
+        <ul>
+          <li><strong>Five labels were revised after review.</strong> The first version counted five EdgeOne pages as "deceptive offer + threat tag" when the screenshots showed only a GTA VI logo, cover art or a "begin the journey" splash, with no offer, form or download. That broke the rubric's own rule that a tag alone isn't enough. They are now uncertain, and every number on this page was recomputed. The blind second pass had already flagged one of them. The original labels are kept in the <code>revised_from</code> column, and repeatability is computed against the first-pass labels.</li>
+          <li><strong>Archived screenshots instead of live visits.</strong> Visiting suspicious pages would have shown more (redirects, payment forms) but risks interacting with live lures and alerting operators. Every label comes from what urlscan had already captured.</li>
+          <li><strong>Platform IPs treated as uninformative.</strong> The first pass of the shared-IP comparison counted EdgeOne and Yandex Cloud edges as ordinary hosting, which made deceptive sites look clustered. Moving them into the CDN/PaaS group removed almost all of the apparent "off-CDN" sharing.</li>
+          <li><strong>Domain age only for registered domains.</strong> urlscan reports the platform's age for subdomain sites, so including them would have made every EdgeOne or Netlify page look years old.</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>
+          I set out to understand whether GTA VI-themed deceptive websites
+          shared infrastructure in ways that could help identify related
+          activity. The results challenged one of the simpler assumptions:
+          shared IP addresses were as common among fan sites as among
+          deceptive ones, mostly because both use the same hosting platforms.
+        </p>
+        <p>
+          Repeated page designs were a more useful signal in this dataset.
+          29% of deceptive-offer domains reused an identifiable visual
+          template, against 3% of fan and news domains, and the gap held,
+          though smaller, when related deployments were grouped together.
+          That doesn't establish common ownership or show that template
+          matching would work as well outside this sample. It does suggest
+          visual similarity deserves a place next to traditional
+          infrastructure indicators.
+        </p>
+        <p>
+          The next step is to test whether the pattern holds on a larger,
+          independently labelled dataset, and whether redirect, registration
+          and page-structure evidence improves the ability to link related
+          sites.
+        </p>
+
+        <h2 id="limitations">Limitations</h2>
+        <ul>
+          <li><strong>Submission-biased sample.</strong> urlscan only contains pages someone chose to scan. The 17% figure describes this sample, not the GTA VI web as a whole or what people actually encounter.</li>
+          <li><strong>Keyword coverage.</strong> The prefix and title queries catch obvious lures and miss scams with generic names or titles.</li>
+          <li><strong>One month.</strong> No year-over-year or pre-announcement comparison. Repeated scans of a page are not new attacks.</li>
+          <li><strong>Screenshot evidence.</strong> Labels rest on one archived screenshot, the title and submitter tags. Seven relevant domains had no screenshot and were labelled from the title alone (low confidence).</li>
+          <li><strong>One labeller.</strong> All labels and template families were judged by one reviewer. The labels file is published so others can check or re-label.</li>
+          <li><strong>Shared infrastructure is not shared ownership.</strong> Identical templates can come from a sold kit, an AI site builder or copy-paste as easily as from one operator. Nothing here attributes a site to a campaign or actor, or measures victims or losses.</li>
         </ul>
 
         <h2>Ethics &amp; data handling</h2>
@@ -323,11 +436,11 @@
           No live suspicious page was visited, no download was fetched or run,
           and no URLs were submitted to any scanner; only existing public scans
           were read. Published domains are defanged (<code>example[.]com</code>),
-          URL paths and query strings are removed (some carried tracking or
-          session tokens), and one personal fundraising page that matched a
-          title query is redacted and excluded. Raw urlscan responses and
-          screenshots are not redistributed; scan UUIDs are included so each
-          record can be looked up on urlscan.io.
+          URL paths and query strings are removed, and one personal
+          fundraising page that matched a title query is redacted and
+          excluded. Screenshots are not republished: the case-study figure is
+          a redrawn layout diagram, and scan UUIDs let anyone view the
+          original records on urlscan.io.
         </p>
 
         <h2 id="sources">Sources</h2>
@@ -341,15 +454,18 @@
           <li>Newcombe, R.G. (1998). "Interval estimation for the difference between independent proportions." <em>Statistics in Medicine</em>, 17(8), 873-890.</li>
         </ul>
 
-        <h2>Data &amp; code</h2>
+        <h2 id="data-code">Data &amp; code</h2>
         <p>
-          Labelled domain table (defanged, with label, evidence, second-pass
-          label and infrastructure fields):
+          Labelled domains (defanged; label, evidence, second-pass label,
+          revision history and infrastructure fields):
           <a href="data/domains_labeled.csv">domains_labeled.csv</a>.
-          Scan-level table: <a href="data/scans.csv">scans.csv</a>.
+          Scans: <a href="data/scans.csv">scans.csv</a>.
           Query log: <a href="data/query_log.csv">query_log.csv</a>.
           Results: <a href="data/group_metrics.csv">group_metrics.csv</a>,
           <a href="data/sensitivity.csv">sensitivity.csv</a>,
+          <a href="data/dedup_template_reuse.csv">dedup_template_reuse.csv</a>,
+          <a href="data/sample_flow.csv">sample_flow.csv</a>,
+          <a href="data/first_seen_daily.csv">first_seen_daily.csv</a>,
           <a href="data/offer_types.csv">offer_types.csv</a>,
           <a href="data/label_counts.csv">label_counts.csv</a>,
           <a href="data/agreement.csv">agreement.csv</a>,
@@ -357,16 +473,35 @@
           <a href="data/title_clusters.csv">title_clusters.csv</a>,
           <a href="data/asn_by_group.csv">asn_by_group.csv</a>.
         </p>
-        <p>
-          Pipeline (Python, DuckDB, pandas, SciPy):
+        <p><strong>Pipeline.</strong>
           <a href="code/collect.py">collect.py</a> queries urlscan and logs
-          each request, <a href="code/prepare.py">prepare.py</a> deduplicates
-          scans and maps registrable domains,
-          <a href="code/analysis.py">analysis.py</a> computes every number on
-          this page from the labels, and <a href="code/charts.py">charts.py</a>
-          draws the figures. Re-running collection after mid-December 2026
-          will return a different 30-day window.
+          each request; <a href="code/prepare.py">prepare.py</a> deduplicates
+          scans and maps registrable domains;
+          <a href="code/analysis.py">analysis.py</a> computes every result
+          from the labels; <a href="code/charts.py">charts.py</a> draws the
+          figures; <a href="code/verify.py">verify.py</a> independently
+          recomputes the headline results from the published CSVs.
+          Dependencies: <a href="code/requirements.txt">requirements.txt</a>
+          (Python 3.12).
         </p>
+        <p><strong>Check the results from the published data</strong> (no
+        API access needed). Download <code>code/</code> and <code>data/</code>
+        into one folder, then:</p>
+<pre><code>pip install -r code/requirements.txt
+cd code
+python verify.py ../data          # expect "0 mismatches" (52 checks)
+python charts.py ../data ../assets   # redraws every figure on this page</code></pre>
+        <p><code>verify.py</code> rebuilds the shared-IP and template flags
+        from raw IPs and template families, recomputes every count, Wilson
+        and Newcombe interval and Fisher p-value in the main and
+        deduplicated tables, and reconciles the sample-flow totals. It exits
+        with an error if anything differs.</p>
+        <p><strong>Re-collecting from scratch</strong> runs
+        <code>python collect.py work</code>, then
+        <code>python prepare.py work</code>, labelling, and
+        <code>python analysis.py work data</code>. urlscan search returns a
+        rolling 30-day history, so a fresh collection after mid-December 2026
+        covers a different window and needs fresh labels.</p>
       </div>
 
       <div class="article-cta mt-lg">
